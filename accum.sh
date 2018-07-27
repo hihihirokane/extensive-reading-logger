@@ -56,29 +56,31 @@ function init(){
     done
     shift $((OPTIND-1))
 
-    # if [ -z "$SCALE" -a -z "$2" ]; then
-    # 	SCALE="lin50000"
-    # elif [ "$SCALE" = "lin" -o "$2" = "lin" ]; then
-    # 	SCALE="lin50000"
-    # elif [ "$SCALE" = "log" -o "$2" = "log" ]; then
-    # 	SCALE="log10"
-    # elif [ ! -z "$SCALE" ]; then
-    # 	argcheck_scale $SCALE
+    if [ -z "$SCALE" -a -z "$2" ]; then
+    	SCALE="lin50000"
+    elif [ "$SCALE" = "lin" -o "$2" = "lin" ]; then
+    	SCALE="lin50000"
+    elif [ "$SCALE" = "log" -o "$2" = "log" ]; then
+    	SCALE="log10"
+    elif [ ! -z "$2" ]; then
+    	SCALE=$2
+    fi
     # else
     # 	argcheck_scale $2
 
-    if [ ! -z "$2" ]; then
-	SCALE=$2
-    elif [ -z "$SCALE" ]; then
-	SCALE="lin50000"
-    elif [ "$SCALE" = "lin" ]; then
-	SCALE="lin50000"
-    elif [ "$SCALE" = "log" ]; then
-	SCALE="log10"
-    else # parse lin[base] or log[base] or ln
-	# echo "$SCALE" | awk 
-	echo "invalid argument for scale"; exit 1
-    fi
+    # if [ ! -z "$2" ]; then
+    # 	SCALE=$2
+    # elif [ -z "$SCALE" ]; then
+    # 	SCALE="lin50000"
+    # elif [ "$SCALE" = "lin" ]; then
+    # 	SCALE="lin50000"
+    # elif [ "$SCALE" = "log" ]; then
+    # 	SCALE="log10"
+    # else # parse lin[base] or log[base] or ln
+    # 	# echo "$SCALE" | awk 
+    # 	echo "invalid argument for scale"; exit 1
+    # fi
+
     # if [ $1 = "-h" ]; then
     # 	echo "Usage: ./accum.sh [-h] days [lin[10000]|log10|ln]"
     # 	exit
@@ -88,7 +90,6 @@ function init(){
     	EVERY=100
     elif [ ! -z "$1" ]; then
 	argcheck_days $1
-    # else
     fi
 
 }
