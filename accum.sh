@@ -137,17 +137,23 @@ function print_record(){
 function print_scale(){
     awk -v SCALE=$1 \
 	'
+	function print_scale_linear_old(scale, column, every, tabw){
+	    for(i=0;i<column/tabw;i++) if(i % every == 0) printf "%d\t", i * tabw * scale; else printf "\t";
+	}
 	function print_scale_linear(scale, column, every, tabw){
-	    for(i=0;i<column/tabw;i++){
-                num = i*tabw*scale
-		digits = log(num)/log(10) + 1
-		aftertab = -int(digits / tabw)
-	        if(i % every == 0){ printf "%d\t", num; #for(j = 0; j > aftertab; j--) printf "\t"; prev = aftertab
+	    # print scale,column,every,tabw
+	    for(i = 0; i < column; ){
+	        num = i * scale
+		digits = (i == 0) ? 1 : int(log(num)/log(10)) + 1
+		nthtab = i / tabw
+		if (nthtab == int(nthtab) && nthtab % every == 0){
+		    # printf "*i: %d, num: %d, digits: %d, %d, %s*\n", i, num, digits, int(nthtab), (nthtab % every == 0 ? "true" : "false")
+		    printf "%d", num
+		    i += digits
 		}
-		else {
-		    # extratab = int(digits / tabw)
-                    # for(j = aftertab; j > 0; j++) printf "\t";
-		    printf "\t";
+		else{
+		    printf " "
+		    i++
 		}
 	    }
 	}
@@ -169,6 +175,7 @@ function print_scale(){
 	    if(SCALE~/lin/){
 	        sub(/lin/,"",SCALE)
 		# EVERY = int((EVERY * TABW - (log(SCALE)/log(10) + 1)) / TABW) + 1
+		# print_scale_linear_old(SCALE, COLUMN, EVERY, TABW)
 		print_scale_linear(SCALE, COLUMN, EVERY, TABW)
 	    }
 	    else if(SCALE~/ln/){
@@ -198,6 +205,8 @@ echo "END: $TODAY"
 echo "SCALE: $SCALE"
 DAYS=0
 WSUM=0
+print_scale $SCALE # for debugging
+exit # for debugging
 ./dailycount.sh > .dailycount.tmp
 while IFS='' read -r line || [[ -n "$line" ]]; do
     D_RECORD=`echo "$line" | awk -Ft '{print$1}'`
