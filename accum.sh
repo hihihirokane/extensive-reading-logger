@@ -141,24 +141,12 @@ function print_scale(){
 	    for(i=0;i<column/tabw;i++) if(i % every == 0) printf "%d\t", i * tabw * scale; else printf "\t";
 	}
 	function print_scale_linear(scale, column, every, tabw){
-	    # print scale,column,every,tabw
 	    for(i = 0; i < column/tabw/every; i++){
 	        num = i * tabw * every * scale
 		digits = (i == 0) ? 1 : int(log(num)/log(10)) + 1
                 skipamount = (i == 0) ? 0 : tabw * every - digits
 		for(j = 0; j < skipamount; j++) printf " "
 		printf "%d", num
-		# for(j = 0; j < skipamount; j++) printf " "
-		# nthtab = i / tabw
-		# if (nthtab == int(nthtab) && nthtab % every == 0){
-		#     # printf "*i: %d, num: %d, digits: %d, %d, %s*\n", i, num, digits, int(nthtab), (nthtab % every == 0 ? "true" : "false")
-		#     printf "%d", num
-		#     i += digits
-		# }
-		# else{
-		#     printf " "
-		#     i++
-		# }
 	    }
 	}
 	function print_scale_log(base, column, every, tabw){
