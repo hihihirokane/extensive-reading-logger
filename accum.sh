@@ -142,22 +142,49 @@ function print_scale(){
 	}
 	function print_scale_linear(scale, column, every, tabw){
 	    # print scale,column,every,tabw
-	    for(i = 0; i < column; ){
-	        num = i * scale
+	    for(i = 0; i < column/tabw/every; i++){
+	        num = i * tabw * every * scale
 		digits = (i == 0) ? 1 : int(log(num)/log(10)) + 1
-		nthtab = i / tabw
-		if (nthtab == int(nthtab) && nthtab % every == 0){
-		    # printf "*i: %d, num: %d, digits: %d, %d, %s*\n", i, num, digits, int(nthtab), (nthtab % every == 0 ? "true" : "false")
-		    printf "%d", num
-		    i += digits
-		}
-		else{
-		    printf " "
-		    i++
-		}
+                skipamount = (i == 0) ? 0 : tabw * every - digits
+		for(j = 0; j < skipamount; j++) printf " "
+		printf "%d", num
+		# for(j = 0; j < skipamount; j++) printf " "
+		# nthtab = i / tabw
+		# if (nthtab == int(nthtab) && nthtab % every == 0){
+		#     # printf "*i: %d, num: %d, digits: %d, %d, %s*\n", i, num, digits, int(nthtab), (nthtab % every == 0 ? "true" : "false")
+		#     printf "%d", num
+		#     i += digits
+		# }
+		# else{
+		#     printf " "
+		#     i++
+		# }
 	    }
 	}
 	function print_scale_log(base, column, every, tabw){
+	    for(i = 0; i < column/tabw/every; i++){
+	        # num = i * tabw * every * scale
+		num = i * tabw * every
+		numdigit = (num == 0) ? 1 : int(log(num)/log(10)) + 1
+		basedigit = int(log(base)/log(10)) + 1
+		if(base == logbase["ln"])
+		    digits = numdigit + 2
+	        else if(base == int(base))
+		    digits = numdigit + basedigit + 1
+		else
+		    digits = numdigit + basedigit + 5
+		digits = (i == 0) ? 1 : digits
+                skipamount = (i == 0) ? 0 : tabw * every - digits
+		for(j = 0; j < skipamount; j++) printf " "
+		if(base == logbase["ln"])
+		    printf "e^%d", i * tabw * every
+	        else if(base == int(base))
+		    printf "%d^%d", base, i * tabw * every
+		else
+		    printf "%.02f^%d\t", base, i * tabw * every
+	    }
+	}
+	function print_scale_log_old(base, column, every, tabw){
 	    if(base == logbase["ln"]){
 	        for(i=0;i<column/tabw;i++) if(i % every == 0) printf "e^%d\t", i*tabw; else printf "\t";
   	    }else if(base == int(base)){
@@ -205,8 +232,8 @@ echo "END: $TODAY"
 echo "SCALE: $SCALE"
 DAYS=0
 WSUM=0
-print_scale $SCALE # for debugging
-exit # for debugging
+# print_scale $SCALE # for debugging
+# exit # for debugging
 ./dailycount.sh > .dailycount.tmp
 while IFS='' read -r line || [[ -n "$line" ]]; do
     D_RECORD=`echo "$line" | awk -Ft '{print$1}'`
