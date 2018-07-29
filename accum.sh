@@ -151,7 +151,8 @@ function print_scale(){
 	}
 	function print_scale_log(base, column, every, tabw){
 	    for(i = 0; i < column/tabw/every; i++){
-	        # num = i * tabw * every * scale
+		if (i == 1) excess = digits - 1; else excess = 0
+		# printf"digits: %d, excess: %d\n", digits, excess
 		num = i * tabw * every
 		numdigit = (num == 0) ? 1 : int(log(num)/log(10)) + 1
 		basedigit = int(log(base)/log(10)) + 1
@@ -159,17 +160,17 @@ function print_scale(){
 		    digits = numdigit + 2
 	        else if(base == int(base))
 		    digits = numdigit + basedigit + 1
-		else
-		    digits = numdigit + basedigit + 5
-		digits = (i == 0) ? 1 : digits
-                skipamount = (i == 0) ? 0 : tabw * every - digits
+		# else
+		#     digits = numdigit + basedigit + 3
+		if (i == 0) digits = 2 + basedigit
+                skipamount = (i == 0) ? 0 : tabw * every - digits - excess
 		for(j = 0; j < skipamount; j++) printf " "
 		if(base == logbase["ln"])
 		    printf "e^%d", i * tabw * every
 	        else if(base == int(base))
 		    printf "%d^%d", base, i * tabw * every
-		else
-		    printf "%.02f^%d\t", base, i * tabw * every
+		# else
+		#     printf "%.02f^%d\t", base, i * tabw * every
 	    }
 	}
 	function print_scale_log_old(base, column, every, tabw){
@@ -183,7 +184,7 @@ function print_scale(){
 	}
 	BEGIN{
 	    logbase["ln"]=exp(1)
-	    COLUMN=121; EVERY=3; TABW=8;
+	    COLUMN=121; EVERY=4; TABW=8;
 	    printf "\t\t\t\t"
 	    for(i = 0; i < COLUMN; i++) if(i % (EVERY*TABW) == 0) printf "|"; else printf "-";
 	    printf "\n\t\t\t\t"
