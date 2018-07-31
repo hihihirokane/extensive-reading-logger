@@ -184,7 +184,7 @@ function print_scale(){
 	}
 	BEGIN{
 	    logbase["ln"]=exp(1)
-	    COLUMN=121; EVERY=4; TABW=8;
+	    COLUMN=121; EVERY=3; TABW=8;
 	    printf "\t\t\t\t"
 	    for(i = 0; i < COLUMN; i++) if(i % (EVERY*TABW) == 0) printf "|"; else printf "-";
 	    printf "\n\t\t\t\t"
