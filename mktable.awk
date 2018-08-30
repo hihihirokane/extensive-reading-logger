@@ -48,28 +48,34 @@ BEGIN{
     # Prepares a table of reader series and difficulties
     lmap="./YL-CEFR.map"
     while((getline < lmap) > 0)
-	cefr[$1]=$2
+	cefr[$1] = $2
     close(lmap)
 
     if(ARGV[1] ~ /^h(elp)?/){
     	print "Usage: ./mktable.awk [f|help]\n"\
-	    "Shows the table about books whom you have read"
+	    "Shows the table about books you have read"
     	exit
     }
     if(ARGV[1] ~ /f/)
-	printmode = 0
-    else
-	printmode = 1
+	printmode = 0 # runnning total of word count used as an output for another shell script
+    else if(ARGV[1] ~ /summary/){
+	printmode = 2 # for summary
+	series = ARGV[2]
+	# print "" > ".mktable.summary"
+	print "cat /dev/null > .mktable.summary" | "sh"
+	close("sh")
+    } else
+	printmode = 1 # just a table
     # reading speed in audio: (2x, 1.5x, 1x) or N/A
     while((getline < "./no-audio.txt") > 0)
 	noaudio[$2] = 1
     close("./no-audio.txt")
 
     # Prints a table
-    if(printmode > 0)
+    if(printmode == 1)
 	print_headerhooter(nr)
     while((getline < "./read.done") > 0){
-	if(/^[ \t]*#/) continue;
+	if(/^[ \t]*#/) continue # skip comment lines
 	if($8 ~ /[0-9]+[hms]/){
 	    min = 0 # minutes you took to turn n pages (integer)
 	    sec = 0 # seconds you took to turn n pages (integer)
@@ -96,11 +102,17 @@ BEGIN{
 		# printf "%s\t%.1f m/p\t%d words/m\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		wpm = sprintf("%.1f m/p\t%3.0f wpm", ReadingSpeedInPage, ReadingSpeedInWord)
-		wpmf=1
+		if(printmode == 2) wpm = sprintf("%3.0f wpm", ReadingSpeedInWord)
+		wpmf = 1
 	    }else{
 		# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
 		wpm = sprintf("%.1f m/p", ReadingSpeedInPage)
-		wpmf=1
+		wpmf = 1
+	    }
+	    if(printmode == 2 && $10 == ""){
+		if(summary[$1][$2] == "") summary[$1][$2] = wpm
+		else summary[$1][$2] = sprintf("%s\t%s", summary[$1][$2], wpm)
+		repeatcount[$1][$2]++
 	    }
 	}
 	# if(!$8 || $8 ~ /N\/A/){ # skip a line with reading time and pages empty ($8) or "N/A"
@@ -108,21 +120,28 @@ BEGIN{
 	#     # print_record()
 	#     # print #$5
 	# }
-	nr+= 1
+	nr += 1
 	wordcount += $5
-	if(printmode > 0 && $5 > 0)
+	if(printmode == 1 && $5 > 0)
 	    print_record(nr)
-	wpmf=0
+	wpmf = 0
     }
     close("./read.done")
-    message="Cumulative Total: " nr " books, " wordcount " words read"
-    if(printmode > 0){
+    if(printmode == 2)
+	for (title in summary[series]){
+	    print series,title,summary[series][title] >> ".mktable.summary"
+	}
+    close(".mktable.summary")
+    print "sort .mktable.summary" | "sh"
+    close("sh")
+    message = "Cumulative Total: " nr " books, " wordcount " words read"
+    if(printmode == 1){
 	print_headerhooter(nr)
 	print message
 	# print nr " books"
 	# print wordcount " words read"
     }
-    else
+    else if (printmode == 0)
 	print wordcount
 }
 
