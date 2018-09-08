@@ -34,6 +34,12 @@ func print_headerhooter(nr){
 	print "---------------------------------------------------------------------------------------------------------------"
 }
 
+function print_help(){
+    print "Usage: ./mktable.awk [f|help|summary series]\n"\
+	"Shows the table about books you have read"
+    exit
+}
+
 BEGIN{
     FS = "\t"
     OFS = "\t"
@@ -44,6 +50,21 @@ BEGIN{
     # 	print "ざまあ"
     # 	exit
     # }
+    # begin to draw underline
+    "tput smul" | getline smul; close("tput smul")
+    # end to draw underline
+    "tput rmul" | getline rmul; close("tput rmul")
+    # "\e[38;5;196m" # red color
+    redcol = "[38;5;196m" # red color of escape sequence
+    yelcol = "[38;5;226m" # yellow color of escape sequence
+    skycol = "[38;5;51m" # sky color of escape sequence
+    blucol = "[38;5;27m" # blue color of escape sequence
+    def = "[0m"
+    summary_file = ".mktable.summary"
+    summary_file_title = ".mktable.title"
+    print "cat /dev/null > " summary_file | "sh"
+    print "cat /dev/null > " summary_file_title | "sh"
+    close("sh")
 
     # Prepares a table of reader series and difficulties
     lmap="./YL-CEFR.map"
@@ -52,26 +73,23 @@ BEGIN{
     close(lmap)
 
     if(ARGV[1] ~ /^h(elp)?/){
-    	print "Usage: ./mktable.awk [f|help]\n"\
-	    "Shows the table about books you have read"
-    	exit
+	print_help()
     }
     if(ARGV[1] ~ /f/)
 	printmode = 0 # runnning total of word count used as an output for another shell script
-    else if(ARGV[1] ~ /summary/){
+    else if(ARGV[1] ~ /summary/ && ARGV[2] != ""){
 	printmode = 2 # for summary
 	series = ARGV[2]
 	# print "" > ".mktable.summary"
-	print "cat /dev/null > .mktable.summary" | "sh"
-	close("sh")
-    } else
+    } else if(ARGV[1] == "")
 	printmode = 1 # just a table
+    else print_help()
     # reading speed in audio: (2x, 1.5x, 1x) or N/A
     while((getline < "./no-audio.txt") > 0)
 	noaudio[$2] = 1
     close("./no-audio.txt")
 
-    # Prints a table
+    # Prints a Table
     if(printmode == 1)
 	print_headerhooter(nr)
     while((getline < "./read.done") > 0){
@@ -101,8 +119,18 @@ BEGIN{
 		ReadingSpeedInWord = pages / min * WordsPerPage
 		# printf "%s\t%.1f m/p\t%d words/m\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
-		wpm = sprintf("%.1f m/p\t%3.0f wpm", ReadingSpeedInPage, ReadingSpeedInWord)
-		if(printmode == 2) wpm = sprintf("%3.0f wpm", ReadingSpeedInWord)
+		rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
+		wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
+		if(ReadingSpeedInWord >= 200)
+		    wpm1 = skycol wpm1 def
+		else if(ReadingSpeedInWord >= 150)
+		    wpm1 = blucol wpm1 def
+		else if(ReadingSpeedInWord < 100)
+		    wpm1 = yelcol wpm1 def
+		wpm = rsip wpm1 " wpm"
+
+		if(printmode == 2)
+		    wpml = wpm1 "wpm@" $6 # $6 : date
 		wpmf = 1
 	    }else{
 		# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
@@ -110,8 +138,10 @@ BEGIN{
 		wpmf = 1
 	    }
 	    if(printmode == 2 && $10 == ""){
-		if(summary[$1][$2] == "") summary[$1][$2] = wpm
-		else summary[$1][$2] = sprintf("%s\t%s", summary[$1][$2], wpm)
+		len_title = length($2)
+		if(len_title_max < len_title) len_title_max = len_title
+		if(summary[$1][$2] == "") summary[$1][$2] = wpml
+		else summary[$1][$2] = summary[$1][$2] "\t" wpml
 		repeatcount[$1][$2]++
 	    }
 	}
@@ -127,13 +157,30 @@ BEGIN{
 	wpmf = 0
     }
     close("./read.done")
+
+    # Prints the Summary instead of the Table
     if(printmode == 2)
 	for (title in summary[series]){
-	    print series,title,summary[series][title] >> ".mktable.summary"
+	    # outline = sprintf("%s\t%s", series, title)
+	    outline = sprintf("%s", title)
+	    len_title = length(title)
+	    tabs = (len_title %8 == 0 && len_title < len_title_max) ? -1 : 0
+	    tabs = len_title_max / 7 - len_title / 7 + tabs
+	    tabs = (len_title == len_title_max) ? tabs + 1 : tabs
+	    for(k = 0; k < tabs; k++) outline = outline sprintf("\t");
+	    outline = outline sprintf("%s", summary[series][title])
+	    print outline >> summary_file
+	    # print series, title, summary[series][title] >> summary_file
+	    # print series, title >> summary_file_title
+	    # print summary[series][title] >> summary_file
 	}
-    close(".mktable.summary")
-    print "sort .mktable.summary" | "sh"
+    # close(summary_file_title)
+    close(summary_file)
+    # print "sort " summary_file | "sh"
+    print "sort " summary_file | "sh"
     close("sh")
+
+    # Prints the Footer of the Table
     message = "Cumulative Total: " nr " books, " wordcount " words read"
     if(printmode == 1){
 	print_headerhooter(nr)
