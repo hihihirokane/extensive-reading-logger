@@ -130,7 +130,6 @@ BEGIN{
 		wpm = rsip wpm1 " wpm"
 
 		if(printmode == 2)
-		    # wpml = wpm1 "wpm@" $6 # $6 : date
 		    wpml = wpm1 ",@" $6 # $6 : date
 		wpmf = 1
 	    }else{
