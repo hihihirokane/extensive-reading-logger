@@ -130,7 +130,8 @@ BEGIN{
 		wpm = rsip wpm1 " wpm"
 
 		if(printmode == 2)
-		    wpml = wpm1 "wpm@" $6 # $6 : date
+		    # wpml = wpm1 "wpm@" $6 # $6 : date
+		    wpml = wpm1 ",@" $6 # $6 : date
 		wpmf = 1
 	    }else{
 		# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
@@ -159,26 +160,25 @@ BEGIN{
     close("./read.done")
 
     # Prints the Summary instead of the Table
-    if(printmode == 2)
+    if(printmode == 2){
 	for (title in summary[series]){
 	    # outline = sprintf("%s\t%s", series, title)
 	    outline = sprintf("%s", title)
 	    len_title = length(title)
-	    tabs = (len_title %8 == 0 && len_title < len_title_max) ? -1 : 0
-	    tabs = len_title_max / 7 - len_title / 7 + tabs
-	    tabs = (len_title == len_title_max) ? tabs + 1 : tabs
-	    for(k = 0; k < tabs; k++) outline = outline sprintf("\t");
+	    tabs = int(len_title_max / 8) - int(len_title / 8)
+	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
 	    outline = outline sprintf("%s", summary[series][title])
 	    print outline >> summary_file
 	    # print series, title, summary[series][title] >> summary_file
 	    # print series, title >> summary_file_title
 	    # print summary[series][title] >> summary_file
 	}
-    # close(summary_file_title)
-    close(summary_file)
-    # print "sort " summary_file | "sh"
-    print "sort " summary_file | "sh"
-    close("sh")
+	# close(summary_file_title)
+	close(summary_file)
+	# print "sort " summary_file | "sh"
+	print "sort " summary_file | "sh"
+	close("sh")
+    }
 
     # Prints the Footer of the Table
     message = "Cumulative Total: " nr " books, " wordcount " words read"
