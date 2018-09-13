@@ -62,6 +62,22 @@ BEGIN{
     # 	print "ざまあ"
     # 	exit
     # }
+
+    # Initialize
+    if(ARGV[1] ~ /^h(elp)?/){
+	print_help()
+    }
+    if(ARGV[1] ~ /f/)
+	printmode = 0 # runnning total of word count used as an output for another shell script
+    else if(ARGV[1] ~ /summary/ && ARGV[2] != ""){
+	printmode = 2 # for summary
+	series = ARGV[2]
+	# print "" > ".mktable.summary"
+    } else if(ARGV[1] == "")
+	printmode = 1 # just a table
+    else print_help()
+
+    ### Settings for fancy printing ###
     # begin to draw underline
     "tput smul" | getline smul; close("tput smul")
     # end to draw underline
@@ -79,44 +95,33 @@ BEGIN{
     close("sh")
 
     # Prepares a table of reader series and difficulties
-    lmap="./YL-CEFR.map"
+    lmap = "./YL-CEFR.map"
     while((getline < lmap) > 0)
 	cefr[$1] = $2
     close(lmap)
 
-    if(ARGV[1] ~ /^h(elp)?/){
-	print_help()
-    }
-    if(ARGV[1] ~ /f/)
-	printmode = 0 # runnning total of word count used as an output for another shell script
-    else if(ARGV[1] ~ /summary/ && ARGV[2] != ""){
-	printmode = 2 # for summary
-	series = ARGV[2]
-	# print "" > ".mktable.summary"
-    } else if(ARGV[1] == "")
-	printmode = 1 # just a table
-    else print_help()
-    # reading speed in audio: (2x, 1.5x, 1x) or N/A
-    while((getline < "./no-audio.txt") > 0)
+    # Reading speed in audio: (2x, 1.5x, 1x) or N/A
+    noaudiomap = "./no-audio.txt"
+    while((getline < noaudiomap) > 0)
 	noaudio[$2] = 1
-    close("./no-audio.txt")
+    close(noaudiomap)
 
     # Prints a Table
-    if(printmode == 1)
-	print_headerhooter(nr)
+    if(printmode == 1) print_headerhooter(nr)
     while((getline < "./read.done") > 0){
 	if(/^[ \t]*#/) continue # skip comment lines
+	if($5 <= 0) continue # skip failed cases
+	wordcount1 = $5 # words a whole book has (integer)
 	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(whole|[0-9]+)/){
 	    wpm = "" # initialize
-	    wordcount1 = $5 # words a whole book has (integer)
-	    if($9 > 0){
-		if($7 ~ /whole/) # pages you turned during a reading session (integer)
-		    pages = $9
-		else pages = $7
-	    }
-
 	    min = conv_to_min($8) # time which it took to read
+	    # if($9 > 0){
+	    if($7 ~ /whole/) # pages you turned during a reading session (integer)
+		pages = $9
+	    else pages = $7
+	    # }
 	    ReadingSpeedInPage = min / pages
+
 	    if($9 > 0){ # when there exist read pages
 		wholepages = $9 # overall pages a whole book has
 		WordsPerPage = wordcount1 / wholepages
@@ -161,8 +166,8 @@ BEGIN{
 	#     # print #$5
 	# }
 	nr += 1
-	wordcount += $5
-	if(printmode == 1 && $5 > 0)
+	wordcount += wordcount1
+	if(printmode == 1 && wordcount1 > 0)
 	    print_record(nr)
     }
     close("./read.done")
