@@ -15,9 +15,7 @@ func print_record(nr){
     sub(/NA/,"N/A",$1)
     # printf "%s\t", $10 # 2x, 1x or N/A
     if(noaudio[$2] && $10 == "") printf "N/A\t"; else printf "%s\t", $10 # N/A or (2x, 1.5x, 1x or 0.5x)
-    # if(wpmf==1)
     printf "%s\t", wpm
-    # else printf "\t\t"
     for(j = 1; j < 3; j++) printf "%s\t", $j
     # printf "%s\t", $3
     printf "\n"
@@ -108,16 +106,16 @@ BEGIN{
 	print_headerhooter(nr)
     while((getline < "./read.done") > 0){
 	if(/^[ \t]*#/) continue # skip comment lines
-	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(whole|[0-9]+)/ && $9 > 0){
+	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(whole|[0-9]+)/){
 	    wpm = "" # initialize
 	    wordcount1 = $5 # words a whole book has (integer)
-	    # if($7 != "" && $9 > 0){
-	    if($7 ~ /whole/) # pages you turned during a reading session (integer)
-		pages = $9
-	    else pages = $7
-	    # }
+	    if($9 > 0){
+		if($7 ~ /whole/) # pages you turned during a reading session (integer)
+		    pages = $9
+		else pages = $7
+	    }
 
-	    min = conv_to_min($8)
+	    min = conv_to_min($8) # time which it took to read
 	    ReadingSpeedInPage = min / pages
 	    if($9 > 0){ # when there exist read pages
 		wholepages = $9 # overall pages a whole book has
@@ -137,11 +135,10 @@ BEGIN{
 
 		if(printmode == 2)
 		    wpml = wpm1 "@" $6 # $6 : date
-		# wpmf = 1
-	    }else{ # $9 == 0 # no read page
-		# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
-		wpm = sprintf("%.1f m/p", ReadingSpeedInPage)
-		# wpmf = 1
+	    }
+	    else{ # $9 == 0 # no read page
+	    	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
+	    	wpm = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 	    }
 	}
 	else { # $8 !~ /[0-9]+[hms]/ || $7 !~ /(whole|[0-9]+)/ || $9 <= 0
@@ -167,7 +164,6 @@ BEGIN{
 	wordcount += $5
 	if(printmode == 1 && $5 > 0)
 	    print_record(nr)
-	# wpmf = 0
     }
     close("./read.done")
 
