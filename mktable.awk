@@ -108,25 +108,15 @@ BEGIN{
 	print_headerhooter(nr)
     while((getline < "./read.done") > 0){
 	if(/^[ \t]*#/) continue # skip comment lines
-	if($8 ~ /[0-9]+[hms]/){
+	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(whole|[0-9]+)/ && $9 > 0){
 	    wpm = "" # initialize
 	    wordcount1 = $5 # words a whole book has (integer)
-	    if($7 != "" && $9 != ""){
-		if($7 ~ /whole/) # pages you turned during a reading session (integer)
-		    pages = $9
-		else pages = $7
-	    }
-	    # min = 0 # minutes you took to turn n pages (integer)
-	    # sec = 0 # seconds you took to turn n pages (integer)
-	    # hour = 0 # hours you took to turn n pages (integer)
-	    # if($8 ~ /[0-9]+s/)
-	    # 	sec = gensub(/([0-9]+h)?([0-9]+)m([0-9]+s)?/, "\\3", 1, $8)
-	    # if($8 ~ /[0-9]+m/)
-	    # 	min = gensub(/([0-9]+h)?([0-9]+)m([0-9]+s)?/, "\\2", 1, $8)
-	    # if($8 ~ /[0-9]+h/)
-	    # 	hour = gensub(/([0-9]+)h([0-9]+m)?([0-9]+s)?/, "\\1", 1, $8)
-	    # # print $0,min/$7 " m/p"
-	    # min += (hour * 60) + (sec / 60)
+	    # if($7 != "" && $9 > 0){
+	    if($7 ~ /whole/) # pages you turned during a reading session (integer)
+		pages = $9
+	    else pages = $7
+	    # }
+
 	    min = conv_to_min($8)
 	    ReadingSpeedInPage = min / pages
 	    if($9 > 0){ # when there exist read pages
@@ -154,7 +144,7 @@ BEGIN{
 		# wpmf = 1
 	    }
 	}
-	else { # $8 !~ /[0-9]+[hms]/
+	else { # $8 !~ /[0-9]+[hms]/ || $7 !~ /(whole|[0-9]+)/ || $9 <= 0
 	    wpm = "\t"
 	    if(printmode == 2)
 		wpml = "n/a@" $6 # $6 : date
