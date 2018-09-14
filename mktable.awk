@@ -174,14 +174,16 @@ BEGIN{
 
     # Prints the Summary instead of the Table
     if(printmode == 2){
-	for (title in summary[series]){
+	for(ser in summary)
+	if(ser ~ series)
+	for(title in summary[ser]){
 	    # outline = sprintf("%s\t%s", series, title)
 	    outline = sprintf("%s", title)
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
 	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
-	    outline = outline sprintf("%s", summary[series][title])
-	    print series, outline >> summary_file
+	    outline = outline sprintf("%s", summary[ser][title])
+	    print ser, outline >> summary_file
 	    # print series, title, summary[series][title] >> summary_file
 	    # print series, title >> summary_file_title
 	    # print summary[series][title] >> summary_file
