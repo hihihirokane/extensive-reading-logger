@@ -191,7 +191,7 @@ BEGIN{
 	    outline = sprintf("%s", title)
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
-	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
+	    for(k = 0; k < tabs; k++) outline = outline sprintf("\t");
 	    outline = outline sprintf("%s", summary[se[i]][title])
 	    print se[i], outline >> summary_file
 	    # print input_series, title, summary[input_series][title] >> summary_file
