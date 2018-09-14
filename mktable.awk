@@ -71,7 +71,7 @@ BEGIN{
 	printmode = 0 # runnning total of word count used as an output for another shell script
     else if(ARGV[1] ~ /summary/ && ARGV[2] != ""){
 	printmode = 2 # for summary
-	series = ARGV[2]
+	input_series = ARGV[2]
 	# print "" > ".mktable.summary"
     } else if(ARGV[1] == "")
 	printmode = 1 # just a table
@@ -174,19 +174,29 @@ BEGIN{
 
     # Prints the Summary instead of the Table
     if(printmode == 2){
-	for(ser in summary)
-        if(ser ~ series)
-        for(title in summary[ser]){
-	    # outline = sprintf("%s\t%s", series, title)
+	ns = 0  # the number of series
+	for(series1 in summary) # array `se' contains the name of series with regexp in 2nd arg hit
+	    if(series1 ~ input_series){
+		se[ns++] = series1
+	    }
+	if(ns <= 0){
+	    printf "the argument is out of bound: %s\n", input_series
+	    print_help()
+	    exit 1
+	}
+
+	for(i = 0; i < ns; i++)
+        for(title in summary[se[i]]){
+	    # outline = sprintf("%s\t%s", input_series, title)
 	    outline = sprintf("%s", title)
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
 	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
-	    outline = outline sprintf("%s", summary[ser][title])
-	    print ser, outline >> summary_file
-	    # print series, title, summary[series][title] >> summary_file
-	    # print series, title >> summary_file_title
-	    # print summary[series][title] >> summary_file
+	    outline = outline sprintf("%s", summary[se[i]][title])
+	    print se[i], outline >> summary_file
+	    # print input_series, title, summary[input_series][title] >> summary_file
+	    # print input_series, title >> summary_file_title
+	    # print summary[input_series][title] >> summary_file
 	}
 	# close(summary_file_title)
 	close(summary_file)
