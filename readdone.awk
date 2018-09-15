@@ -143,7 +143,7 @@ BEGIN{
     close(date)
     oldbackup="read.done"
     newbackup="read.done." date2
-    mktbl="./mktable.awk f"
+    mktbl="./mktable.awk wordcount"
     mkdir="mkdir -p ./backup"
     backup="cp -i " oldbackup " ./backup/" newbackup
     caution="################################################################################\n" \

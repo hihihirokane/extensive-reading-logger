@@ -67,14 +67,17 @@ BEGIN{
     if(ARGV[1] ~ /^h(elp)?/){
 	print_help()
     }
-    if(ARGV[1] ~ /f/)
+    if(ARGV[1] ~ /w(ordcount)?/)
 	printmode = 0 # runnning total of word count used as an output for another shell script
-    else if(ARGV[1] ~ /summary/ && ARGV[2] != ""){
+    else if(ARGV[1] == "")
+	printmode = 1 # just a table
+    else if(ARGV[1] ~ /s(ummary)?/ && ARGV[2] != ""){
 	printmode = 2 # for summary
 	input_series = ARGV[2]
 	# print "" > ".mktable.summary"
-    } else if(ARGV[1] == "")
-	printmode = 1 # just a table
+    }
+    else if(ARGV[1] ~ /t(ime)?/)
+	printmode = 3 # for summary about time
     else print_help()
 
     ### Settings for fancy printing ###
