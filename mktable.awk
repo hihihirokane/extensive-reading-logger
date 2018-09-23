@@ -64,20 +64,26 @@ BEGIN{
     # }
 
     # Initialize
+    summary_file = ".mktable.summary"
+    summary_file_title = ".mktable.title"
+    print "cat /dev/null > " summary_file | "sh"
+    print "cat /dev/null > " summary_file_title | "sh"
+    close("sh")
+
     if(ARGV[1] ~ /^h(elp)?/){
 	print_help()
     }
     if(ARGV[1] ~ /w(ordcount)?/)
 	printmode = 0 # runnning total of word count used as an output for another shell script
-    else if(ARGV[1] == "")
-	printmode = 1 # just a table
-    else if(ARGV[1] ~ /s(ummary)?/ && ARGV[2] != ""){
+    else if(ARGV[1] ~ /s(ummary)?/ && 2 in ARGV){
 	printmode = 2 # for summary
 	input_series = ARGV[2]
 	# print "" > ".mktable.summary"
     }
     else if(ARGV[1] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
+    else if(1 in ARGV)
+	printmode = 1 # just a table
     else print_help()
 
     ### Settings for fancy printing ###
@@ -91,11 +97,6 @@ BEGIN{
     skycol = "[38;5;51m" # sky color of escape sequence
     blucol = "[38;5;27m" # blue color of escape sequence
     def = "[0m"
-    summary_file = ".mktable.summary"
-    summary_file_title = ".mktable.title"
-    print "cat /dev/null > " summary_file | "sh"
-    print "cat /dev/null > " summary_file_title | "sh"
-    close("sh")
 
     # Prepares a table of reader series and difficulties
     lmap = "./YL-CEFR.map"
@@ -133,7 +134,7 @@ BEGIN{
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 		wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
-		if(ReadingSpeedInWord >= 200)
+		if(ReadingSpeedInWord > 194)
 		    wpm1 = skycol wpm1 def
 		else if(ReadingSpeedInWord >= 150)
 		    wpm1 = blucol wpm1 def
@@ -160,7 +161,8 @@ BEGIN{
 	    if(len_title_max < len_title) len_title_max = len_title
 	    if(summary[$1][$2] == "") summary[$1][$2] = wpml
 	    else summary[$1][$2] = summary[$1][$2] "\t" wpml
-	    repeatcount[$1][$2]++
+	    # summary[$1][$2][repcnt[$1, $2]] = wpml
+	    # repcnt[$1, $2]++
 	}
 
 	# if(!$8 || $8 ~ /N\/A/){ # skip a line with reading time and pages empty ($8) or "N/A"
@@ -191,11 +193,16 @@ BEGIN{
 	for(i = 0; i < ns; i++)
         for(title in summary[se[i]]){
 	    # outline = sprintf("%s\t%s", input_series, title)
-	    outline = sprintf("%s", title)
+	    # outline = sprintf("%s", title)
+	    outline = title
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
 	    for(k = 0; k < tabs; k++) outline = outline sprintf("\t");
 	    outline = outline sprintf("%s", summary[se[i]][title])
+	    # ol = summary[se[i]][title][0]
+	    # for(j = 1; j < repcnt[se[i], title]; j++)
+	    # 	ol = ol "\t" summary[se[i]][title][j]
+	    # outline = outline ol
 	    print se[i], outline >> summary_file
 	    # print input_series, title, summary[input_series][title] >> summary_file
 	    # print input_series, title >> summary_file_title
