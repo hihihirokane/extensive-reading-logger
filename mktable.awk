@@ -52,6 +52,15 @@ function conv_to_min(hms){ # format of the argument: ([0-9]+h)?([0-9]+m)?([0-9]+
     return m
 }
 
+function trimdate(d){
+    ty = substr(d, 0, 4)
+    if(ty >= thisyear)
+	_date = substr(d, 6, 5)
+    else
+	_date = sprintf("%5d", ty)
+    return _date
+}
+
 BEGIN{
     FS = "\t"
     OFS = "\t"
@@ -79,6 +88,10 @@ BEGIN{
 	printmode = 2 # for summary
 	input_series = ARGV[2]
 	# print "" > ".mktable.summary"
+	_command = "date +%Y"
+	_command | getline thisyear
+	close(_command)
+	# thisyear = 2018
     }
     else if(ARGV[1] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
@@ -143,7 +156,7 @@ BEGIN{
 		wpm = rsip wpm1 " wpm"
 
 		if(printmode == 2)
-		    wpml = wpm1 "@" $6 # $6 : date
+		    wpml = wpm1 "@" trimdate($6) # $6 : date
 	    }
 	    else{ # $9 == 0 # no read page
 	    	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
@@ -153,7 +166,7 @@ BEGIN{
 	else { # $8 !~ /[0-9]+[hms]/ || $7 !~ /(whole|[0-9]+)/ || $9 <= 0
 	    wpm = "\t"
 	    if(printmode == 2)
-		wpml = "n/a@" $6 # $6 : date
+		wpml = "n/a@" trimdate($6) # $6 : date
 	}
 
 	if(printmode == 2 && $10 == ""){ # only when book is read in silent (no aloud or no audio)
