@@ -116,11 +116,11 @@ BEGIN{
 	if(/^[ \t]*#/) continue # skip comment lines
 	if($5 <= 0) continue # skip failed cases
 	wordcount1 = $5 # words a whole book has (integer)
-	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(whole|[0-9]+)/){
+	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(w(hole)?|[0-9]+)/){
 	    wpm = "" # initialize
 	    min = conv_to_min($8) # time which it took to read
 	    # if($9 > 0){
-	    if($7 ~ /whole/) # pages you turned during a reading session (integer)
+	    if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
 		pages = $9
 	    else pages = $7
 	    # }
@@ -157,12 +157,13 @@ BEGIN{
 	}
 
 	if(printmode == 2 && $10 == ""){ # only when book is read in silent (no aloud or no audio)
-	    len_title = length($2)
+	    booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
+	    len_title = length(booktitle)
 	    if(len_title_max < len_title) len_title_max = len_title
-	    if(summary[$1][$2] == "") summary[$1][$2] = wpml
-	    else summary[$1][$2] = summary[$1][$2] "\t" wpml
-	    # summary[$1][$2][repcnt[$1, $2]] = wpml
-	    # repcnt[$1, $2]++
+	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = wpml
+	    else summary[$1][booktitle] = summary[$1][booktitle] "\t" wpml
+	    # summary[$1][booktitle][repcnt[$1, booktitle]] = wpml
+	    # repcnt[$1, booktitle]++
 	}
 
 	# if(!$8 || $8 ~ /N\/A/){ # skip a line with reading time and pages empty ($8) or "N/A"
@@ -197,7 +198,7 @@ BEGIN{
 	    outline = title
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
-	    for(k = 0; k < tabs; k++) outline = outline sprintf("\t");
+	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
 	    outline = outline sprintf("%s", summary[se[i]][title])
 	    # ol = summary[se[i]][title][0]
 	    # for(j = 1; j < repcnt[se[i], title]; j++)
