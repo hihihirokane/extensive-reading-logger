@@ -52,12 +52,50 @@ function conv_to_min(hms){ # format of the argument: ([0-9]+h)?([0-9]+m)?([0-9]+
     return m
 }
 
+function month(d){
+    switch(d){
+	case 1:
+	    return "Jan"
+	case 2:
+	    return "Feb"
+	case 3:
+	    return "Mar"
+	case 4:
+	    return "Apr"
+	case 5:
+	    return "May"
+	case 6:
+	    return "Jun"
+	case 7:
+	    return "Jul"
+	case 8:
+	    return "Aug"
+	case 9:
+	    return "Sep"
+	case 10:
+	    return "Oct"
+	case 11:
+	    return "Nov"
+	case 12:
+	    return "Dec"
+	default:
+	    return "###"
+    }
+}
+
 function trimdate(d){
     ty = substr(d, 0, 4)
-    if(ty >= thisyear)
-	_date = substr(d, 6, 5)
-    else
-	_date = sprintf("%5d", ty)
+    tm = substr(d, 6, 2)
+    if(ty >= thisyear && tm == thismonth)
+	_date = substr(d, 9, 2) # substr(d, 6, 2) 
+    else if(ty >= thisyear && tm != thismonth)
+	_date = month(int(substr(d, 6, 2)))
+    if(ty < thisyear)
+    # 	_date = substr(d, 6, 5)
+    # else
+	# _date = sprintf("%5d", ty)
+	_date = sprintf("'%d", substr(ty, 3, 2))
+# LC_ALL=en_US.utf-8 date | awk '{print$2}'
     return _date
 }
 
@@ -92,6 +130,11 @@ BEGIN{
 	_command | getline thisyear
 	close(_command)
 	# thisyear = 2018
+	# _command = "LC_ALL=en_US.utf-8 date"
+	_command = "date +%m"
+	_command | getline thismonth
+	close(_command)
+	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
     else if(ARGV[1] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
