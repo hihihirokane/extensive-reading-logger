@@ -194,6 +194,8 @@ BEGIN{
 		    wpm1 = skycol wpm1 def
 		else if(ReadingSpeedInWord >= 150)
 		    wpm1 = blucol wpm1 def
+		else if(ReadingSpeedInWord < 75)
+		    wpm1 = redcol wpm1 def
 		else if(ReadingSpeedInWord < 100)
 		    wpm1 = yelcol wpm1 def
 		wpm = rsip wpm1 " wpm"
