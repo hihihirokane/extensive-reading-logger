@@ -214,8 +214,9 @@ BEGIN{
 		wpml = "n/a@" trimdate($6) # $6 : date
 	}
 
-	if(printmode == 2 && $10 == ""){ # only when book is read in silent (no aloud or no audio)
-	    booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
+	if(printmode == 2 && $10 == ""){ # only if a book is read in silent (no aloud or no audio)
+	    # booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
+	    booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)  # - Short Stories
 	    len_title = length(booktitle)
 	    if(len_title_max < len_title) len_title_max = len_title
 	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = wpml
