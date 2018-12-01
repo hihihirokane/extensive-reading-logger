@@ -9,8 +9,8 @@ them as a table in your activity of extensive reading.
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 (Tab-separated values)を用いて、多読を記録・表示するawkスクリプト。グ
-レイデッドリーダーでないものは手書きで更新する必要があるが、
-`mktable.awk` はその場合も考慮して表示する。
+レイデッドリーダーでないものは手書きで ```read.done``` を更新する必要
+があるが、`mktable.awk` はその場合も考慮して表示する。
 
 
 ## Components
