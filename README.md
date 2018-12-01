@@ -4,7 +4,7 @@ Making use of
 [Graded Reader List](https://sites.google.com/site/erfgrlist/)
 provided by ERF (Extensive Reading Foundation) as a list of
 tab-separated values (.tsv), these AWK scripts make records and show
-them as a table in your activity of extensive reading.
+them as a table of your history in extensive reading.
 
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
