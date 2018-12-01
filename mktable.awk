@@ -116,6 +116,9 @@ BEGIN{
     print "cat /dev/null > " summary_file | "sh"
     print "cat /dev/null > " summary_file_title | "sh"
     close("sh")
+    comm_today = "date +%Y-%m-%d-T%H:%M"
+    comm_today | getline today
+    close(comm_today)
 
     if(ARGV[1] ~ /^h(elp)?/){
 	print_help()
@@ -134,6 +137,9 @@ BEGIN{
 	_command = "date +%m"
 	_command | getline thismonth
 	close(_command)
+	if(3 in ARGV && ARGV[3] ~ /-s/){
+	    record_summary_file = ARGV[2] "-summary-" today
+	}
 	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
     else if(ARGV[1] ~ /t(ime)?/)
@@ -270,9 +276,12 @@ BEGIN{
 	}
 	# close(summary_file_title)
 	close(summary_file)
-	# print "sort " summary_file | "sh"
 	print "sort " summary_file | "sh"
 	close("sh")
+	if(3 in ARGV && ARGV[3] ~ /-s/){ # redundant. It needs to be clean
+	    print "sort " summary_file " > " record_summary_file | "sh" # escape sequence must be erased.
+	    close("sh")
+	}
     }
 
     # Prints the Footer of the Table
