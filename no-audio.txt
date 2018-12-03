@@ -23,3 +23,10 @@ OBW4	Songs of Distant Earth and Other Stories, The
 OBW4	Unquiet Grave, The
 OBW4	We Didn't Mean to Go to Sea
 OBW4	Whispering Knights, The
+OBW5	Accidental Tourist, The
+OBW5	Brat Farrar
+OBW5	Bride Price, The
+OBW5	Deadlock
+OBW5	Dead of Jericho, The
+OBW5	Do Androids Dream of Electric Sheep?
+OBW5	I, Robot - Short Stories
