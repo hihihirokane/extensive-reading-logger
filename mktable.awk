@@ -1,4 +1,4 @@
-#!/opt/local/bin/gawk -F "$" -f
+#!/opt/local/bin/gawk -F "$" -f round.awk -f
 #!/usr/bin/awk -F "$" -f
 
 func print_record(nr){
@@ -99,6 +99,19 @@ function trimdate(d){
     return _date
 }
 
+function wpmcolor(wpm_s, wpm_f){
+    wpm_i = round(wpm_f)
+    if(wpm_f > 195)
+        wpm_s = skycol wpm_s def
+    else if(wpm_f >= 150)
+        wpm_s = blucol wpm_s def
+    else if(wpm_f < 75)
+        wpm_s = redcol wpm_s def
+    else if(wpm_f < 100)
+        wpm_s = yelcol wpm_s def
+    return wpm_s
+}
+
 BEGIN{
     FS = "\t"
     OFS = "\t"
@@ -196,14 +209,7 @@ BEGIN{
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 		wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
-		if(ReadingSpeedInWord > 194)
-		    wpm1 = skycol wpm1 def
-		else if(ReadingSpeedInWord >= 150)
-		    wpm1 = blucol wpm1 def
-		else if(ReadingSpeedInWord < 75)
-		    wpm1 = redcol wpm1 def
-		else if(ReadingSpeedInWord < 100)
-		    wpm1 = yelcol wpm1 def
+		wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 		wpm = rsip wpm1 " wpm"
 
 		if(printmode == 2)
