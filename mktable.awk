@@ -174,7 +174,7 @@ BEGIN{
     def = "[0m"
 
     # Prepares a table of reader series and difficulties
-    lmap = "./YL-CEFR.map"
+    lmap = "./level.map"
     while((getline < lmap) > 0)
 	cefr[$1] = $2
     close(lmap)
@@ -185,9 +185,12 @@ BEGIN{
 	noaudio[$2] = 1
     close(noaudiomap)
 
+    # Reading Record file
+    reading_record = "./read.done"
+
     # Prints a Table
     if(printmode == 1) print_headerhooter(nr)
-    while((getline < "./read.done") > 0){
+    while((getline < reading_record) > 0){
 	if(/^[ \t]*#/) continue # skip comment lines
 	if($5 <= 0) continue # skip failed cases
 	wordcount1 = $5 # words a whole book has (integer)
@@ -247,7 +250,7 @@ BEGIN{
 	if(printmode == 1 && wordcount1 > 0)
 	    print_record(nr)
     }
-    close("./read.done")
+    close(reading_record)
 
     # Prints the Summary instead of the Table
     if(printmode == 2){
