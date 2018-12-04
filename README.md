@@ -3,8 +3,8 @@
 Making use of
 [Graded Reader List](https://sites.google.com/site/erfgrlist/)
 provided by ERF (Extensive Reading Foundation) as a list of
-tab-separated values (.tsv), these AWK scripts make records and show
-them as a table of your history in extensive reading.
+tab-separated values (.tsv), you can make reading records in extensive reading with ```readdone.awk```
+and show them as a table with ```mktable.awk```. These AWK scripts not only allow graded readers but also ordinary paperbacks to be recorded.
 
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
