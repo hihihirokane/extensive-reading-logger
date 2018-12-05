@@ -53,34 +53,10 @@ function conv_to_min(hms){ # format of the argument: ([0-9]+h)?([0-9]+m)?([0-9]+
 }
 
 function month(d){
-    switch(d){
-	case 1:
-	    return "Jan"
-	case 2:
-	    return "Feb"
-	case 3:
-	    return "Mar"
-	case 4:
-	    return "Apr"
-	case 5:
-	    return "May"
-	case 6:
-	    return "Jun"
-	case 7:
-	    return "Jul"
-	case 8:
-	    return "Aug"
-	case 9:
-	    return "Sep"
-	case 10:
-	    return "Oct"
-	case 11:
-	    return "Nov"
-	case 12:
-	    return "Dec"
-	default:
-	    return "###"
-    }
+    if(1 <= d && d <= 12)
+	return mnth[d]
+    else
+	return "###"
 }
 
 function trimdate(d){
@@ -138,9 +114,22 @@ BEGIN{
     comm_today = "date +%Y-%m-%d-T%H:%M"
     comm_today | getline today
     close(comm_today)
+    mnth[1] = "Jan"
+    mnth[2] = "Feb"
+    mnth[3] = "Mar"
+    mnth[4] = "Apr"
+    mnth[5] = "May"
+    mnth[6] = "Jun"
+    mnth[7] = "Jul"
+    mnth[8] = "Aug"
+    mnth[9] = "Sep"
+    mnth[10] = "Oct"
+    mnth[11] = "Nov"
+    mnth[12] = "Dec"
+
+    ### Parsing command and option ###
     # argind = 1
     argind = getopts() # index in ARGV of first nonoption argument
-
     if(ARGV[argind] ~ /^h(elp)?/){
 	print_help()
     }
