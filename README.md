@@ -68,7 +68,10 @@ macmillan, blackcat` のみを用意している。 -->
 オプションをつけることで記録ができる。このオプションの位置は問わない。記録するファイルの既定名は
 ```read.done```
 である。
-```./readdone.awk o[xford] farrar --commit```
+
+```
+./readdone.awk o[xford] farrar --commit
+```
 
 ```--commit```
 する際に各リーダーの読書時間と総ページ数を併せて指定すると、後に**表示**する際に読書速度
