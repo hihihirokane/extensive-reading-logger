@@ -1,5 +1,5 @@
 #!/bin/sh
-# accum.sh: ./accum.sh [-h] days [lin10000|log10]
+# accum.sh: ./accum.sh [-h|-s <lin[class]|log[base]|ln>|-d days] [days] [lin[class]|log[base]|ln]
 # arguments: 
 # $1: every n days
 # $2: lin[0-9]+ or log[0-9]+ or ln
