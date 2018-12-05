@@ -108,12 +108,10 @@ BEGIN{
     OFS = "\t" # output field separator
     summary_file = ".mktable.summary"
     summary_file_title = ".mktable.title"
-    print "cat /dev/null > " summary_file | "sh"
-    print "cat /dev/null > " summary_file_title | "sh"
-    close("sh")
+    print "cat /dev/null > " summary_file | "sh"; close("sh")
+    print "cat /dev/null > " summary_file_title | "sh"; close("sh")
     comm_today = "date +%Y-%m-%d-T%H:%M"
-    comm_today | getline today
-    close(comm_today)
+    comm_today | getline today; close(comm_today)
     mnth[1] = "Jan"
     mnth[2] = "Feb"
     mnth[3] = "Mar"
@@ -140,13 +138,11 @@ BEGIN{
 	input_series = ARGV[argind + 1]
 	# print "" > ".mktable.summary"
 	_command = "date +%Y"
-	_command | getline thisyear
-	close(_command)
+	_command | getline thisyear; close(_command)
 	# thisyear = 2018
 	# _command = "LC_ALL=en_US.utf-8 date"
 	_command = "date +%m"
-	_command | getline thismonth
-	close(_command)
+	_command | getline thismonth; close(_command)
 	# if(3 in ARGV && ARGV[argind + 2] ~ /-s/){
 	if("s" in Opt && Opt["s"] == 1){
 	    record_summary_file = ARGV[argind + 1] "-summary-" today
@@ -286,8 +282,7 @@ BEGIN{
 	}
 	# close(summary_file_title)
 	close(summary_file)
-	print "sort " summary_file | "sh"
-	close("sh")
+	print "sort " summary_file | "sh"; close("sh")
 	if("s" in Opt && Opt["s"] == 1){
 	    print "sort " summary_file " > " record_summary_file | "sh" # escape sequence must be erased.
 	    close("sh")
