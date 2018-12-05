@@ -88,7 +88,7 @@ $ ./readdone.awk o[xford] farrar --commit
 ```10m```
 とか
 ```600s```
-といった冗長さを許して指定できる。
+といった冗長さを許して指定できる。第5引数は総ページ数である。
 * 1冊まるごとの時間を測った場合 ```./readdone.awk o[xford] farrar w[hole] [0h]200m[0s] 88 --commit```
 * ある5ページの時間を測った場合 ```./readdone.awk o[xford] farrar 5 [0h]10m[0s] 88 --commit```
 
