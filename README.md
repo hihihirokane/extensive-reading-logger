@@ -37,10 +37,12 @@ awk
 
 第一引数にはグレーデッド・リーダーの出版社名を指定する。Oxford Bookworms Library や Oxford Reading Tree を入力したい場合、第1引数は
 ```oxford```
-または省略して
-```o``` でよいようにしてある。現時点では本邦で入手しやすい
-```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], o[xford], pen[guin], pea[rson]```
-のみが指定できる。
+または可能な限り省略した
+```o``` のみでも指定できる。この
+```o[xford]```
+の他に指定できる第1引数は、現時点で本邦で入手しやすい
+```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]```
+である。
 候補を絞るには第2引数に検索キーワードを指定する。これは大文字と小文字を区別せず、また拡張正規表現(ERE)の場合には二重引用符が必要である。
 
 ```
