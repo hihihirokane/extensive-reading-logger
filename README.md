@@ -72,7 +72,7 @@ macmillan, blackcat` のみを用意している。 -->
 コマンドは累計語数を計算して返す。
 
 ```
-./readdone.awk o[xford] farrar --commit
+$ ./readdone.awk o[xford] farrar --commit
 8647120 words read
 ```
 
