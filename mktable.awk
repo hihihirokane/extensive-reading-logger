@@ -127,7 +127,7 @@ function getopts(){
 }
 
 BEGIN{
-    # Initialize
+    ### Initialize ###
     FS = "\t" # field separator
     OFS = "\t" # output field separator
     summary_file = ".mktable.summary"
@@ -138,7 +138,6 @@ BEGIN{
     comm_today = "date +%Y-%m-%d-T%H:%M"
     comm_today | getline today
     close(comm_today)
-
     # argind = 1
     argind = getopts() # index in ARGV of first nonoption argument
 
@@ -316,54 +315,3 @@ BEGIN{
 	print wordcount
 }
 
-# {
-#     min=0
-#     sum += $5
-#     if ($7 && $8){
-# 	if($8 ~ /[0-9]+m/){
-# 	    min = gensub(/([0-9]+h)?([0-9]+)m/, "\\2", 1, $8)
-# 	}
-# 	if($8 ~ /[0-9]+h/){
-# 	    min += gensub(/([0-9]+)h([0-9]+m)?/, "\\1", 1, $8) * 60
-# 	}
-# 	print $0,min/$7 " m/p"
-#     }
-#     else print
-# }
-
-# $8 ~ /[0-9]+(h|m)/{
-#     pages = $7 # pages you turned while reading
-#     min = 0 # minutes you took to turn n pages
-#     wordcount1 = $5 # words a whole book has
-#     if($8 ~ /[0-9]+m/)
-# 	min = gensub(/([0-9]+h)?([0-9]+)m/, "\\2", 1, $8)
-#     if($8 ~ /[0-9]+h/)
-# 	min += gensub(/([0-9]+)h([0-9]+m)?/, "\\1", 1, $8) * 60
-#     # print $0,min/$7 " m/p"
-#     ReadingSpeedInPage = min / pages
-#     if($9 != ""){
-# 	wholepages = $9 # pages a whole book has
-# 	WordsPerPage = wordcount1 / wholepages
-# 	ReadingSpeedInWord = pages / min * WordsPerPage
-# 	printf "%s\t%.1f m/p\t%d words/m\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
-#     }else
-# 	printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
-# }
-
-# $8 !~ /[0-9]+(h|m)/{
-# !$8{
-#     print #$5
-# }
-
-# {
-#     # print $5
-#     wordcount += $5
-# }
-
-# END{
-#     # print "----------------------------------------------------------------------------------------------------"
-#     # print NR " books, " sum " words read"
-#     # print NR " books"
-#     # print nr " books"
-#     # print wordcount " words read"
-# }
