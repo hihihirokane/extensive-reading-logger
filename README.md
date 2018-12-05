@@ -30,17 +30,22 @@ ERFが提供するグレイデッド・リーダーのリスト
 
 ### 検索
 
-第二引数には検索キーワードを置く。大文字と小文字を区別しない。また第二
-引数は正規表現(ERE)の場合、引用符が必要。
+候補を絞るには第2引数に検索キーワードを置く。これは大文字と小文字を区別せず、また拡張正規表現(ERE)の場合には二重引用符が必要。
 
-```./readdone.awk o[xford] farrar w[hole] [0h]200m[0s] 88```
+```
+$ ./readdone.awk o[xford] farrar
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2018.12.06				
+################################################################################
+#### Invoked in the Dry-run mode:                                           ####
+#### Put the "--commit" option to append records                            ####
+################################################################################
+```
 
 <!-- `o[xford], penguin(pearson), cambridge, cengage(heinle),
 macmillan, blackcat` のみを用意している。 -->
 
 ### 記録
-各本の読書時間とページ数を入力する場合には、検索の時点で結果が1件にな
-るまで絞る必要がある。
+各本の読書時間とページ数を入力する場合には、検索の時点で結果が1件になるまで絞る必要がある。
 
 ```./readdone.awk o[xford] farrar w[hole] [0h]200m[0s] 88 --commit```
 
