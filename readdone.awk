@@ -28,7 +28,7 @@ function init(){
     "tput smul" | getline smul; close("tput smul") # begin to draw underline
     "tput rmul" | getline rmul; close("tput rmul") # end to draw underline
     usage0 = "Usage: " bold "./readdone.awk" sgr0 " "
-    usage1 = smul "b[lackcat]|ca[mbridge]|ce[ngage]|m[acmillan]|o[xford]|p[enguin]" rmul " "
+    usage1 = smul "b[lackcat]|ca[mbridge]|ce[ngage]|m[acmillan]|o[xford]|pen[guin]|pea[rson]" rmul " "
     usage2 = "[--commit] " smul "keyword" rmul " [[" smul "pages" rmul "] ["\
 	smul "time" rmul "] ["\
 	smul "overall pages" rmul "]]\n"
