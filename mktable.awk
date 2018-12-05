@@ -1,4 +1,4 @@
-#!/opt/local/bin/gawk -F "$" -f round.awk -f
+#!/opt/local/bin/gawk -F "$" -f round.awk -f getopt.awk -f
 #!/usr/bin/awk -F "$" -f
 
 func print_record(nr){
@@ -32,7 +32,7 @@ func print_headerhooter(nr){
 }
 
 function print_help(){
-    print "Usage: ./mktable.awk [f|help|summary series]\n"\
+    print "Usage: ./mktable.awk [wordcount|help|summary series]\n"\
 	"Shows the table about books you have read"
     exit
 }
@@ -112,18 +112,24 @@ function wpmcolor(wpm_s, wpm_f){
     return wpm_s
 }
 
-BEGIN{
-    FS = "\t"
-    OFS = "\t"
-    # print ARGV[1]
-    # exit
-    # printmode=1
-    # if(testv == 1){
-    # 	print "ざまあ"
-    # 	exit
-    # }
+function getopts(){
+    while ((_go_c = getopt(ARGC, ARGV, "s")) != -1){
+    	# printf("c = <%c>, Optarg = <%s>\n",  _go_c, Optarg)
+    	Opt[_go_c] = 1
+    }
+    # print "Opt[_go_c]", Opt["s"]
+    # print "Optind", Optind
+    # for (i = Optind; i < ARGC; i++)
+    # 	printf("\tARGV[%d] = <%s>\n", i, ARGV[i])
+    # argind = Optind
+    # exit 1
+    return Optind # index in ARGV of first nonoption argument
+}
 
+BEGIN{
     # Initialize
+    FS = "\t" # field separator
+    OFS = "\t" # output field separator
     summary_file = ".mktable.summary"
     summary_file_title = ".mktable.title"
     print "cat /dev/null > " summary_file | "sh"
@@ -133,14 +139,17 @@ BEGIN{
     comm_today | getline today
     close(comm_today)
 
-    if(ARGV[1] ~ /^h(elp)?/){
+    # argind = 1
+    argind = getopts() # index in ARGV of first nonoption argument
+
+    if(ARGV[argind] ~ /^h(elp)?/){
 	print_help()
     }
-    if(ARGV[1] ~ /w(ordcount)?/)
+    if(ARGV[argind] ~ /w(ordcount)?/)
 	printmode = 0 # runnning total of word count used as an output for another shell script
-    else if(ARGV[1] ~ /s(ummary)?/ && 2 in ARGV){
+    else if(ARGV[argind] ~ /s(ummary)?/ && argind + 1 in ARGV){
 	printmode = 2 # for summary
-	input_series = ARGV[2]
+	input_series = ARGV[argind + 1]
 	# print "" > ".mktable.summary"
 	_command = "date +%Y"
 	_command | getline thisyear
@@ -150,15 +159,16 @@ BEGIN{
 	_command = "date +%m"
 	_command | getline thismonth
 	close(_command)
-	if(3 in ARGV && ARGV[3] ~ /-s/){
-	    record_summary_file = ARGV[2] "-summary-" today
+	# if(3 in ARGV && ARGV[argind + 2] ~ /-s/){
+	if("s" in Opt && Opt["s"] == 1){
+	    record_summary_file = ARGV[argind + 1] "-summary-" today
 	}
 	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
-    else if(ARGV[1] ~ /t(ime)?/)
+    else if(ARGV[argind] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
-    else if(1 in ARGV)
-	printmode = 1 # just a table
+    # else if(1 in ARGV)
+    # 	printmode = 1 # just a table
     else print_help()
 
     ### Settings for fancy printing ###
@@ -212,7 +222,8 @@ BEGIN{
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 		wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
-		wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
+		if(! ("s" in Opt))
+		    wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 		wpm = rsip wpm1 " wpm"
 
 		if(printmode == 2)
@@ -287,7 +298,7 @@ BEGIN{
 	close(summary_file)
 	print "sort " summary_file | "sh"
 	close("sh")
-	if(3 in ARGV && ARGV[3] ~ /-s/){ # redundant. It needs to be clean
+	if("s" in Opt && Opt["s"] == 1){
 	    print "sort " summary_file " > " record_summary_file | "sh" # escape sequence must be erased.
 	    close("sh")
 	}
