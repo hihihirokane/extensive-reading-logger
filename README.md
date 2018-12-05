@@ -8,9 +8,14 @@ and show them as a table with ```mktable.awk```. These AWK scripts allow graded 
 
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
-(Tab-separated values)を用いて、多読を記録・表示するawkスクリプト。グ
-レイデッドリーダーでないものは手書きで ```read.done``` を更新する必要
-があるが、`mktable.awk` はその場合も考慮して表示する。
+(.tsv, tab-separated values)
+を用いて、多読を記録・表示する
+awk
+スクリプト。グレイデッド・リーダーでないものは手書きで
+```read.done```
+を更新する必要があるが、
+`mktable.awk`
+はその場合も考慮して表示する(予定)。
 
 
 ## Components
@@ -30,11 +35,15 @@ ERFが提供するグレイデッド・リーダーのリスト
 
 ### 検索
 
-候補を絞るには第2引数に検索キーワードを置く。これは大文字と小文字を区別せず、また拡張正規表現(ERE)の場合には二重引用符が必要。
+第一引数にはグレーデッド・リーダーの出版社名を指定する。Oxford Bookworms Library や Oxford Reading Tree を入力したい場合、第1引数は
+```oxford```
+または省略して
+```o``` でよい。
+候補を絞るには第2引数に検索キーワードを指定する。これは大文字と小文字を区別せず、また拡張正規表現(ERE)の場合には二重引用符が必要である。
 
 ```
 $ ./readdone.awk o[xford] farrar
-OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2018.12.06				
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2018.12.06
 ################################################################################
 #### Invoked in the Dry-run mode:                                           ####
 #### Put the "--commit" option to append records                            ####
