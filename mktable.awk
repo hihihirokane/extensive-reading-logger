@@ -164,10 +164,12 @@ BEGIN{
 	}
 	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
+    else if(ARGV[argind] ~ /s(ummary)?/)
+	print_help()
     else if(ARGV[argind] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
-    # else if(1 in ARGV)
-    # 	printmode = 1 # just a table
+    else if(argind in ARGV)
+    	printmode = 1 # just a table
     else print_help()
 
     ### Settings for fancy printing ###
