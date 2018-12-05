@@ -4,7 +4,7 @@ Making use of
 [Graded Reader List](https://sites.google.com/site/erfgrlist/)
 provided by ERF (Extensive Reading Foundation) as a list of
 tab-separated values (.tsv), **extensive-reading-logger** which consists of AWK scripts make reading records in extensive reading with ```readdone.awk```
-and show them as a table with ```mktable.awk```. These AWK scripts allow graded readers as well as ordinary paperbacks to be recorded.
+and show them as a table with ```mktable.awk```. These scripts allow graded readers as well as ordinary paperbacks to be recorded.
 
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
@@ -26,7 +26,7 @@ awk
 以下はおまけである。
 
 1. ```accum.h``` 累計語数の推移を視覚的に表現する。目盛りは線形と対数から選べる。```read.done``` が必要。
-1. ```audio-duration.sh``` iTunesからエクスポートされたプレイリストから、音源の読み上げ時間を測る。
+1. ```audio-duration.sh``` iTunesからエクスポートされたプレイリストから、音源の読み上げ時間を得る。
 1. ```calc-audioWPM.sh``` iTunesからエクスポートされたプレイリストから、音源の読み上げ速度を計算する。
 1. ```dailycount.sh``` 1日単位の語数を表示する。```read.done``` が必要。長くなるので```tail```コマンドと併用するのがよい。
 1. ```gosa.awk``` シリーズ語数平均からの各リーダーの散らばりを表示する。
