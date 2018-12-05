@@ -37,6 +37,15 @@ function print_help(){
     exit
 }
 
+function print_help_summary(){
+    print "Usage: ./mktable.awk [-s] s[ummary] "smul"series"rmul \
+	"\n\nSummary mode, option -s for saving the screen without fancy formatting"\
+	"\nas the command 'tee'."\
+	" The placeholder "smul"series"rmul" accepts a string as well as"\
+	"\nan extended regular expression (ERE) but with it dobulequoted."
+    exit
+}
+
 function conv_to_min(hms){ # format of the argument: ([0-9]+h)?([0-9]+m)?([0-9]+s)?
     s = 0 # seconds you took to turn n pages (integer)
     m = 0 # minutes you took to turn n pages (integer)
@@ -125,6 +134,18 @@ BEGIN{
     mnth[11] = "Nov"
     mnth[12] = "Dec"
 
+    ### Settings for fancy printing ###
+    # begin to draw underline
+    "tput smul" | getline smul; close("tput smul")
+    # end to draw underline
+    "tput rmul" | getline rmul; close("tput rmul")
+    # "\e[38;5;196m" # red color
+    redcol = "[38;5;196m" # red color of escape sequence
+    yelcol = "[38;5;226m" # yellow color of escape sequence
+    skycol = "[38;5;51m" # sky color of escape sequence
+    blucol = "[38;5;27m" # blue color of escape sequence
+    def = "[0m"
+
     ### Parsing command and option ###
     # argind = 1
     argind = getopts() # index in ARGV of first nonoption argument
@@ -150,24 +171,12 @@ BEGIN{
 	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
     else if(ARGV[argind] ~ /s(ummary)?/)
-	print_help()
+	print_help_summary()
     else if(ARGV[argind] ~ /t(ime)?/)
 	printmode = 3 # for summary about time
     else if(argind in ARGV)
     	printmode = 1 # just a table
     else print_help()
-
-    ### Settings for fancy printing ###
-    # begin to draw underline
-    "tput smul" | getline smul; close("tput smul")
-    # end to draw underline
-    "tput rmul" | getline rmul; close("tput rmul")
-    # "\e[38;5;196m" # red color
-    redcol = "[38;5;196m" # red color of escape sequence
-    yelcol = "[38;5;226m" # yellow color of escape sequence
-    skycol = "[38;5;51m" # sky color of escape sequence
-    blucol = "[38;5;27m" # blue color of escape sequence
-    def = "[0m"
 
     # Prepares a table of reader series and difficulties
     lmap = "./level.map"
