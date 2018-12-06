@@ -87,6 +87,8 @@ BEGIN{
 	dbno = 5
     else if(DBNAME ~ /(bl?a?c?k?c?a?t?)/)
 	dbno = 1
+    else if(DBNAME ~ /[nN]\/?[aA]/)
+	dbno = 0
     else{
 	print "no db"; exit
     }
@@ -116,10 +118,10 @@ BEGIN{
 
     # if((getline < "./"DBNAME) > 0)
     # print "grep -i" keyword " ./" DBNAME | "sh"
-    date = "./date.done"
+    date = "date '+%Y.%m.%d'"
     date | getline date1
     close(date)
-    grep = "grep -Ei " keyword " ./" DBNAME 
+    grep = "grep -Ei " keyword " ./" DBNAME
     # grep | getline
     resultno = 0
     # print "hello"
