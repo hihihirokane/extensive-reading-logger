@@ -1,4 +1,4 @@
-#!/opt/local/bin/gawk -F "$" -f round.awk -f getopt.awk -f
+#!/opt/local/bin/gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/usr/bin/awk -F "$" -f
 
 func print_record(nr){
