@@ -1,4 +1,5 @@
 Place here .tsv file(s) that correspond to 'blackcat, cambridge,
-cengage, macmillan, oxford, penguin, pearson' from ERF Graded Reader
-List (https://sites.google.com/site/erfgrlist/), and make symbolic
-links to them with the name above from the application root directory.
+cengage, macmillan, oxford, penguin, pearson' downloaded from ERF
+Graded Reader List (https://sites.google.com/site/erfgrlist/), and
+make symbolic links to them with the name above from the application
+root directory.
