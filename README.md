@@ -20,6 +20,20 @@ AWK
 ```grep, cat```
 でしかないが、提供されているリストが項目多数であるといった問題を解決する。グレイデッド・リーダーでない場合の記録はエディタ等の手書きで更新する必要があるが、そのレコードも継ぎ目なく表示する。
 
+使用するためには、サイト
+[ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
+からスクリプト
+```readdone.awk```
+で指定できる出版社・ブランド
+```blackcat, cambridge, cengage, macmillan, oxford, penguin, pearson```
+に対応した
+.tsv
+ファイルをダウンロードしてディレクトリ
+```db/```
+に置き、アプリケーションルートディレクトリからそれら
+.tsv
+ファイルへのシンボリックリンクを、名は上記のようにして張る。
+
 ## Components
 
 1. ```readdone.awk``` 検索と記録。結果は ```read.done``` に書き込まれる。
@@ -51,11 +65,11 @@ Oxford Reading Tree
 などを出版するオックスフォード大学出版局のグレーデッド・リーダーを指定したい場合、第1引数は
 ```oxford```
 とする。または可能な限り省略して
-```o``` ともできる。この
-```o[xford]```
-の他に第1引数で指定できる出版社・ブランドは、現時点で本邦で入手しやすい
-```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]```
-である。
+```o``` ともできる。<!-- この -->
+<!-- ```o[xford]``` -->
+<!-- の他に第1引数で指定できる出版社・ブランドは、現時点で本邦で入手しやすい -->
+<!-- ```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]``` -->
+<!-- である。 -->
 
 例えば、
 Brat Farrar, Oxford Bookworms Library Stage 5
