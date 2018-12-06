@@ -9,7 +9,11 @@ and show them as a table with ```mktable.awk```. These scripts allow graded read
 ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 (.tsv, tab-separated values)
-を用いて、多読を記録・表示する
+を用いて、多読を記録
+(```readdone.awk```)
+・表示
+(```mktable.awk```)
+する
 AWK
 スクリプト群。リストの検索・記録・表示に用いるスクリプト内部の実質的なUN*Xコマンドは
 ```grep, cat```
