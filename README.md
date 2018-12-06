@@ -36,8 +36,12 @@ AWK
 検索するためのコマンドは
 ```readdone.awk```
 である。
-必要なグレーデッド・リーダーを選ぶためには、
-第1引数にグレーデッド・リーダーの出版社名・ブランド名を指定する。例えば、
+記録に必要なグレーデッド・リーダーを選ぶためには、
+* 第1引数にグレーデッド・リーダーの出版社名・ブランド名、
+* 候補を絞るために第2引数に検索キーワード、
+を指定する。
+
+例えば、
 Oxford Bookworms Library
 や
 Oxford Reading Tree
@@ -49,11 +53,14 @@ Oxford Reading Tree
 の他に第1引数で指定できる出版社・ブランドは、現時点で本邦で入手しやすい
 ```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]```
 である。
-候補を絞るには第2引数に検索キーワードを指定する。これは大文字と小文字を区別せず、また拡張正規表現
+
+例えば、
+Brat Farrar, Oxford Bookworms Library Stage 5
+を指定したい場合、第2引数は大文字と小文字を区別せず、また拡張正規表現
 (ERE)
-も指定できるが、その場合には二重引用符が必要である。
-```--commit```
-オプションがないと記録はしない。
+も指定できるが、その場合には(二重)引用符が必要である。この例では単に
+```farrar```
+と指定する。
 
 ```
 $ ./readdone.awk o[xford] farrar
@@ -63,6 +70,10 @@ OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2018.12.06
 #### Put the "--commit" option to append records                            ####
 ################################################################################
 ```
+
+コマンド中に
+```--commit```
+オプションがない場合には記録せず、上記の様にメッセージを出す。
 
 <!-- `o[xford], penguin(pearson), cambridge, cengage(heinle),
 macmillan, blackcat` のみを用意している。 -->
