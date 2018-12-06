@@ -6,7 +6,8 @@ provided by ERF (Extensive Reading Foundation) as a list of
 tab-separated values (.tsv), **extensive-reading-logger** which consists of AWK scripts make reading records in extensive reading with ```readdone.awk```
 and show them as a table with ```mktable.awk```. These scripts allow graded readers as well as ordinary paperbacks to be recorded.
 
-ERFが提供するグレイデッド・リーダーのリスト
+**extensive-reading-logger**
+は、ERFが提供するグレイデッド・リーダーのリスト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 (.tsv, tab-separated values)
 を用いて、多読を記録
@@ -15,7 +16,7 @@ ERFが提供するグレイデッド・リーダーのリスト
 (```mktable.awk```)
 する
 AWK
-スクリプト群。リストの検索・記録・表示に用いるスクリプト内部の実質的なUN*Xコマンドは
+スクリプト群である。リストの検索・記録・表示に用いるスクリプト内部の実質的なUN*Xコマンドは
 ```grep, cat```
 でしかないが、提供されているリストが項目多数であるといった問題を解決する。グレイデッド・リーダーでない場合の記録はエディタ等の手書きで更新する必要があるが、そのレコードも継ぎ目なく表示する。
 
