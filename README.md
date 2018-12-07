@@ -20,7 +20,8 @@ AWK
 ```grep, cat```
 でしかないが、提供されているリストが項目多数であるといった問題を解決する。グレイデッド・リーダーでない場合の記録はエディタ等の手書きで更新する必要があるが、そのレコードも継ぎ目なく表示する。
 
-使用するためには、サイト
+## Installation
+インストールするためには、サイト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 からスクリプト
 ```readdone.awk```
