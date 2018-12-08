@@ -1,8 +1,8 @@
 #!/bin/sh
 
 
-# getduration(): プレーンテキストのプレイリストからCDの長さ(秒: 整数)を測る
-# $1: iTunesから出力したプレイリスト "playlist/プレイリスト名.txt"
+# getduration(): get the duration (seconds) of an audiobook out of iTunes playlists
+# arg $1: playlist exported from iTunes "playlist/$1"
 function getduration () {
     # awk -Ft '{gsub(//,"\n");print}' "$1" | awk -Ft '{if(NR>1)sum+=$8}END{printf "%dm%ds\n",int(sum/60),sum%60;}'
     awk -Ft '{gsub(//,"\n");print}' "$1" | awk -Ft '{if(NR > 1) sum += $8}END{print sum}'
@@ -10,7 +10,7 @@ function getduration () {
 
 # printf "  WPM\t  1.5x\tSERIES\tTITLE\n" # コラム見出し
 # printf " 1x WPM\t   1.5x\tSERIES\tTITLE\n" # コラム見出し
-printf " 1x WPM\t   1.5x\t     2x\tSERIES\tTITLE\n" # コラム見出し
+printf " 1x WPM\t   1.5x\t     2x\tSERIES\tTITLE\n" # title of columns
 for pls in playlist/* # pls: iTunesから出したプレイリスト
 do
     # plsname: シリーズとタイトル(空白,ドット"."あり)
@@ -26,7 +26,7 @@ do
     # printf "%d\n" "$words"
     # plsname="$stage $title"
     # printf "%s\n" "$title"
-    dur=`getduration "$pls"` # obtaining a Duration of Audio book from playlist
+    dur=`getduration "$pls"` # obtaining a Duration of Audio book out of playlist $pls
     # wpm=`./audio-duration.sh "$pls" $words`
     # wpm, wpm2: WPM (整数3桁)
     wpm=`printf "round(%d / %d * 60)\n" $words $dur | cat round.bc - | bc -l`
