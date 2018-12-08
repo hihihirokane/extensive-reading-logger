@@ -20,10 +20,6 @@ AWK
 ```grep, cat```
 でしかないが、提供されているリストが項目多数であるといった問題を解決する。グレイデッド・リーダーでない読書の記録にも対応するが、その場合の語数については
 [Reading Length](https://readinglength.com/)
-や
-Amazon.com
-にあると聞く
-text stat
 などから探すか、または
 [SSS式算出法](https://www.seg.co.jp/sss/word_count/how-to-count.html)
 を用いて手動で算出するなどの必要がある。ただしその場合もエディタ等の手書きで記録を更新する必要はない。
