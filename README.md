@@ -126,8 +126,20 @@ $ ./readdone.awk o[xford] farrar --commit
 * **1冊まるごと**の時間を測った場合 ```./readdone.awk o[xford] farrar w[hole] [0h]200m[0s] 88 --commit```
 * **ある5ページ**の時間を測った場合 ```./readdone.awk o[xford] farrar 5 [0h]10m[0s] 88 --commit```
 
-
 各リーダーの読書時間とページ数を**入力する**場合には、検索の時点で結果が1件になるまで絞る必要がある。逆に、各リーダーの読書時間とページ数を**入力しない**場合には、検索の時点で結果が1件になるまで絞る必要はなく、したがって複数のリーダーを一度に登録できる。この場合に第2引数を正規表現を指定できるのは有用である。
+
+#### ERF Graded Reader List に登録がない場合の記録
+第1引数に出版社・ブランド名のかわりに ```na``` または ```NA``` を指定し、以下第2引数は書名、第3引数は著者名、第4引数は語数を指定する。読書速度を算出するための第5引数以降の順序は同様である。
+空白を含む書名や著者名は
+```"The Title of The Book"```
+や
+```'The Name of The Author'```
+のように
+(二重または一重)
+引用符で囲む。
+
+* 時間を測らない場合 ```./readdone.awk n[a] booktitle author wordcount --commit```
+* 時間を測る場合 ```./readdone.awk n[a] booktitle author wordcount w[hole] 1h20m30s 88 --commit```
 
 ### 表示
 
