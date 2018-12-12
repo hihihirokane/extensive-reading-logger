@@ -25,19 +25,27 @@ AWK
 を用いて手動で算出するなどの必要がある。ただしその場合もエディタ等の手書きで記録を更新する必要はない。
 
 ## Installation
-インストールするためには、サイト
+インストールするには、サイト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
-からスクリプト
+から現時点でスクリプト
 ```readdone.awk```
 で指定できる出版社・ブランド
-```blackcat, cambridge, cengage, macmillan, oxford, penguin, pearson```
 に対応した
 .tsv
 ファイルをダウンロードしてディレクトリ
 ```db/```
 に置き、アプリケーションルートディレクトリからそれら
 .tsv
-ファイルへのシンボリックリンクを、名は上記のようにして張る。
+ファイルへのシンボリックリンクを張る。出版社名とシンボリックリンク名の既定の対応は以下の通りである：
+
+出版社・ブランド|シンボリックリンク
+-----------------|-------------
+Black Cat - Cideb|```blackcat```
+Cambridge U. Press|```cambridge```
+Cengage/Heinle|```cengage```
+Macmillan ELT|```macmillan```
+Oxford U. Press|```oxford```
+Pearson English Readers, Penguin ELT|```pearson, penguin```
 
 ## Components
 
