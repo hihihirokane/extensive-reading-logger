@@ -4,9 +4,11 @@ BEGIN{
     series[0]="OBW3"
     series[1]="OBW4"
     series[2]="OBW5"
+    series[3]="OBW6"
     ref["OBW3"] = 10000
     ref["OBW4"] = 15000
     ref["OBW5"] = 24000
+    ref["OBW6"] = 30000
     for(i in series){
 	command = "grep ^" series[i] " oxford"
 	while((command | getline) > 0){
