@@ -29,4 +29,6 @@ OBW5	Bride Price, The
 OBW5	Deadlock
 OBW5	Dead of Jericho, The
 OBW5	Do Androids Dream of Electric Sheep?
+OBW5	Heat and Dust
 OBW5	I, Robot - Short Stories
+OBW5	Jeeves and Friends - Short Stories

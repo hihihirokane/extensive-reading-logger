@@ -111,6 +111,10 @@ function getopts(){
     return Optind # index in ARGV of first nonoption argument
 }
 
+function short_title(origtitle){
+    return gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", origtitle)
+}
+
 BEGIN{
     ### Initialize ###
     FS = "\t" # field separator
@@ -187,8 +191,10 @@ BEGIN{
     # Reading speed in audio: (2x, 1.5x, 1x) or N/A
     noaudiomap = "./no-audio.txt"
     while((getline < noaudiomap) > 0)
-	noaudio[$2] = 1
+	noaudio[short_title($2)] = 1
     close(noaudiomap)
+    audio[0]=""
+    audio[1]="NA"
 
     # Reading Record file
     reading_record = "./read.done"
@@ -237,10 +243,11 @@ BEGIN{
 
 	if(printmode == 2 && $10 == ""){ # only if a book is read in silent (no aloud or no audio)
 	    # booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
-	    booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)  # - Short Stories
+	    # booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)
+	    booktitle = short_title($2)
 	    len_title = length(booktitle)
 	    if(len_title_max < len_title) len_title_max = len_title
-	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = wpml
+	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = (noaudio[booktitle] ? "N/A" : "") "\t" wpml
 	    else summary[$1][booktitle] = summary[$1][booktitle] "\t" wpml
 	    # summary[$1][booktitle][repcnt[$1, booktitle]] = wpml
 	    # repcnt[$1, booktitle]++
@@ -278,7 +285,7 @@ BEGIN{
 	    outline = title
 	    len_title = length(title)
 	    tabs = int(len_title_max / 8) - int(len_title / 8)
-	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t");
+	    for(k = 0; k <= tabs; k++) outline = outline sprintf("\t")
 	    outline = outline sprintf("%s", summary[se[i]][title])
 	    # ol = summary[se[i]][title][0]
 	    # for(j = 1; j < repcnt[se[i], title]; j++)
