@@ -33,6 +33,9 @@ UN*X
 を用いて手動で算出するなどの必要がある。ただしその場合もエディタ等の手書きで記録を更新する必要はない。
 
 ## Installation
+GNU Awk
+```gawk```
+が必要。
 インストールするには、サイト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 から現時点でスクリプト
