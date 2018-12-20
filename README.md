@@ -4,7 +4,9 @@ Making use of
 [Graded Reader List](https://sites.google.com/site/erfgrlist/)
 provided by ERF (Extensive Reading Foundation) as a list of
 tab-separated values (.tsv), **extensive-reading-logger** which consists of AWK scripts make reading records in extensive reading with ```readdone.awk```
-and show them as a table with ```mktable.awk```. These scripts allow graded readers as well as ordinary paperbacks to be recorded.
+and show them as a table with ```mktable.awk```.
+The scripts has the same functions as ```grep, cat```, but they provide the much simpler way to search, to log, and to show your records.
+The scripts make graded readers as well as ordinary paperbacks recorded.
 
 **extensive-reading-logger**
 は、ERFが提供するグレイデッド・リーダーのリスト
