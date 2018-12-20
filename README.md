@@ -16,9 +16,13 @@ and show them as a table with ```mktable.awk```. These scripts allow graded read
 (```mktable.awk```)
 する
 AWK
-スクリプト群である。リストの検索・記録・表示に用いるスクリプト内部の実質的なUN*Xコマンドは
+スクリプト
+(とシェルスクリプト)
+群である。リストの検索、多読の記録・表示に用いられるこれらのスクリプトと実質的に等しい
+UN*X
+コマンドは
 ```grep, cat```
-でしかないが、提供されているリストが項目多数であるといった問題を解決する。グレイデッド・リーダーでない読書の記録にも対応するが、その場合の語数については
+であり、このスクリプト群は使用者の手順を直接コマンド操作より簡潔にする。グレイデッド・リーダーでない読書の記録にも対応するが、その場合の語数については
 [Reading Length](https://readinglength.com/)
 などから探すか、または
 [SSS式算出法](https://www.seg.co.jp/sss/word_count/how-to-count.html)
