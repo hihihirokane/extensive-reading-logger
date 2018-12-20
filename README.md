@@ -22,11 +22,11 @@ with the aid of websites like [Reading Length](https://readinglength.com/).
 AWK
 スクリプト
 (とシェルスクリプト)
-群である。リストの検索、多読の記録・表示に用いられるこれらのスクリプトと実質的に等しい
+群である。リストの検索、多読の記録・表示といった機能は
 UN*X
-コマンドは
+コマンド
 ```grep, cat```
-であり、このスクリプト群は使用者の手順を直接コマンド操作より簡潔にする。グレイデッド・リーダーでない読書の記録にも対応するが、その場合の語数については
+による結果と同様であるが、このスクリプト群は使用者の手順を直接コマンド操作よりもっと簡潔にする。グレイデッド・リーダーでない読書の記録にも対応するが、その場合の語数については
 [Reading Length](https://readinglength.com/)
 などから探すか、または
 [SSS式算出法](https://www.seg.co.jp/sss/word_count/how-to-count.html)
