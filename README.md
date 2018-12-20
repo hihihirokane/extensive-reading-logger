@@ -8,7 +8,7 @@ and show them as a table with ```mktable.awk```.
 The scripts has the same functions as UN*X commands ```grep, cat```,
 and they provide the much simpler way to search, to log, and to show your records.
 The scripts make graded readers as well as ordinary paperbacks recorded,
-thanks to websites like [Reading Length](https://readinglength.com/).
+with the aid of websites like [Reading Length](https://readinglength.com/).
 
 **extensive-reading-logger**
 は、ERFが提供するグレイデッド・リーダーのリスト
