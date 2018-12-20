@@ -36,7 +36,7 @@ UN*X
 GNU Awk
 ```gawk```
 が必要。
-インストールするには、サイト
+このスクリプトをインストールするには、サイト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 から現時点でスクリプト
 ```readdone.awk```
