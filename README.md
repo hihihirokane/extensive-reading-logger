@@ -6,7 +6,7 @@ provided by ERF (Extensive Reading Foundation) as a list of
 tab-separated values (.tsv), **extensive-reading-logger** which consists of AWK scripts make reading records in extensive reading with ```readdone.awk```
 and show them as a table with ```mktable.awk```.
 The scripts has the same as some functions of UN*X commands ```grep, cat```,
-and they provide the much simpler way to search, to log, and to show your records.
+and they provide users with the much simpler way. <!-- to search, to log, and to show your records -->
 The scripts make graded readers as well as ordinary paperbacks recorded,
 with the aid of websites like [Reading Length](https://readinglength.com/).
 
