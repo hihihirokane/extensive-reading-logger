@@ -178,7 +178,10 @@ $ ./readdone.awk o[xford] farrar --commit
 ### 表示
 
 #### 非要約モード
-* ```./mktable.awk``` 長くなるためUN*Xコマンド```tail```と併用するとよい。
+```read.done```
+に記載された記録を整形して表にする。
+長くなるため UN*X コマンド ```tail,head,grep``` と併用するとよい。
+* ```./mktable.awk``` 
 * ```./mktable.awk -w``` 画面を保存する。
 
 使用例:
