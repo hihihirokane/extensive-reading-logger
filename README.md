@@ -208,10 +208,31 @@ Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
 Cumulative Total: 885 books, 9019734 words read
 ```
 
+#### 累計語数のみ表示
 
+* ```./mktable.awk w```
 
-```./mktable.awk w``` (累計語数のみ表示)
+使用例:
 
-```./mktable.awk s OBW5``` (要約モード) 第二引数は正規表現(ERE)の場合、引用符が必要。
+```
+$ ./mktable.awk w
+9019734
+```
 
-```./mktable.awk -w s OBW5``` (要約モード) 画面を保存する。
+#### 要約モード
+* ```./mktable.awk s OBW5``` 第二引数は正規表現(ERE)の場合、引用符が必要。
+* ```./mktable.awk -w s OBW5``` 画面を保存する。
+
+使用例:
+
+```
+$ ./mktable.awk s OBW4$
+OBW4	20,000 Leagues under the Sea				152@Apr	165@Jun	160@Sep	150@Oct	169@Nov
+OBW4	African Queen, The				N/A	 72@'17	 93@Apr	101@Jun	173@Aug	130@Nov	130@22
+OBW4	Big Sleep, The					N/A	128@'17	144@Apr	149@Jun	229@Aug	210@Nov
+                                        .
+                                        .
+                                        .
+OBW4	We Didn't Mean to Go to Sea			N/A	131@May	155@Jul	145@Sep	162@Oct	172@Nov
+OBW4	Whispering Knights, The				N/A	n/a@'15	154@May	166@Jul	141@Sep	181@Nov
+```
