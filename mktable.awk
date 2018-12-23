@@ -149,8 +149,8 @@ BEGIN{
     # "\e[38;5;196m" # red color
     redcol = "[38;5;196m" # red color of escape sequence
     yelcol = "[38;5;226m" # yellow color of escape sequence
-    skycol = "[38;5;51m" # sky color of escape sequence
-    blucol = "[38;5;27m" # blue color of escape sequence
+    skycol = "[38;5;51m" # sky color (cyan 1) of escape sequence
+    blucol = "[38;5;27m" # dodge blue 1 color of escape sequence
     def = "[0m"
 
     ### Parsing command and option ###
