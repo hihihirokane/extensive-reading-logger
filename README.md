@@ -186,7 +186,7 @@ $ ./readdone.awk o[xford] farrar --commit
 ```
 $ ./mktable.awk
 ---------------------------------------------------------------------------------------------------------------
-Date		Words	Sum	CEFR	audio	min/p	words/m	Reader	Title
+Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
 ---------------------------------------------------------------------------------------------------------------
 2017.01.17	  1292	   1292	A1			2.9 m/p	 72 wpm	OBWS	Cat, The	
 2017.01.17	   890	   2182	A1			2.4 m/p	 82 wpm	OBWS	Connecticut Yankee in King Arthur's Court, A	
