@@ -67,6 +67,7 @@ Pearson English Readers, Penguin ELT|```pearson, penguin```
 
 1. ```readdone.awk``` 検索と記録。結果は ```read.done``` に書き込まれる。
 1. ```mktable.awk``` 多読記録の表示。```read.done``` が必要。
+1. ```install.sh``` [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/) (2018年12月24日現在) をインストールする。
 
 以下はおまけである。
 
