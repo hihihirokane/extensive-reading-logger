@@ -188,10 +188,10 @@ $ ./mktable.awk
 ---------------------------------------------------------------------------------------------------------------
 Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
 ---------------------------------------------------------------------------------------------------------------
-2017.01.17	  1292	   1292	A1			2.9 m/p	 72 wpm	OBWS	Cat, The	
-2017.01.17	   890	   2182	A1			2.4 m/p	 82 wpm	OBWS	Connecticut Yankee in King Arthur's Court, A	
-2017.01.19	  1260	   3442	A1			3.0 m/p	 68 wpm	OBWS	Dead Man's Money	
-2017.01.19	  1400	   4842	A1			2.9 m/p	 79 wpm	OBWS	Drive into Danger	
+2017.01.17	  1292	   1292	A1					OBWS	Cat, The	
+2017.01.17	   890	   2182	A1					OBWS	Connecticut Yankee in King Arthur's Court, A	
+2017.01.19	  1260	   3442	A1					OBWS	Dead Man's Money	
+2017.01.19	  1400	   4842	A1					OBWS	Drive into Danger	
 2018.01.21	  5440	  10282	A1/A2			0.6 m/p	220 wpm	OBW1	Wizard of Oz, The	
                                         .
                                         .
