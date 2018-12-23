@@ -183,7 +183,7 @@ $ ./readdone.awk o[xford] farrar --commit
 (多読のやりかたによっては)
 有用かもしれない。
  <!-- UN*X コマンド ```tail,head,grep``` と併用するか、 -->
-* ```./mktable.awk``` WPMが色つきで、若干ファンシーに表示される。速さとその意味とその色との関係は以下の通り。意味は酒井邦秀『快読100万語』に倣った。
+* ```./mktable.awk``` WPMが色つきで、若干ファンシーに表示される。速さとその意味とその色との関係は以下の通りであり、速さの意味は『快読100万語』におおよそ倣った。
 * ```./mktable.awk -w``` 画面を保存する。
 
 速度|WPMの色|意味
@@ -191,7 +191,7 @@ $ ./readdone.awk o[xford] farrar --commit
 200-|![#00ffff](https://placehold.it/15/00ffff/000000?text=+) `シアン(#00ffff)`|簡単すぎる
 150-200|![#005fff](https://placehold.it/15/005fff/000000?text=+) `ドッジブルー(#005fff)`|十分に速いので、レベルを上げてよい
 100-150|無色|このレベルが現在の訓練に適している
-75-100|![#ffff00](https://placehold.it/15/ffff00/000000?text=+) `イエロー(#ffff00)`|やや遅いので、レベル下げを検討すべき
+75-100|![#ffff00](https://placehold.it/15/ffff00/000000?text=+) `イエロー(#ffff00)`|読むのが辛ければレベル下げを検討すべき
 -75|![#ff0000](https://placehold.it/15/ff0000/000000?text=+) `レッド(#ff0000)`|難しすぎる
 
 
@@ -248,3 +248,6 @@ OBW4	Big Sleep, The					N/A	128@'17	144@Apr	149@Jun	229@Aug	210@Nov
 OBW4	We Didn't Mean to Go to Sea			N/A	131@May	155@Jul	145@Sep	162@Oct	172@Nov
 OBW4	Whispering Knights, The				N/A	n/a@'15	154@May	166@Jul	141@Sep	181@Nov
 ```
+
+## Bibliography
+1. 酒井邦秀『快読100万語!ペーパーバックへの道』(ちくま学芸文庫、2002年)
