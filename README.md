@@ -177,9 +177,38 @@ $ ./readdone.awk o[xford] farrar --commit
 
 ### 表示
 
-```./mktable.awk``` (非要約モード) 長くなるためUN*Xコマンド```tail```と併用するとよい。
+#### 非要約モード
+* ```./mktable.awk``` 長くなるためUN*Xコマンド```tail```と併用するとよい。
+* ```./mktable.awk -w``` 画面を保存する。
 
-```./mktable.awk -w``` (非要約モード) 画面を保存する。
+使用例:
+
+```
+$ ./mktable.awk
+---------------------------------------------------------------------------------------------------------------
+Date		Words	Sum	CEFR	audio	min/p	words/m	Reader	Title
+---------------------------------------------------------------------------------------------------------------
+2017.01.17	  1292	   1292	A1			2.9 m/p	 72 wpm	OBWS	Cat, The	
+2017.01.17	   890	   2182	A1			2.4 m/p	 82 wpm	OBWS	Connecticut Yankee in King Arthur's Court, A	
+2017.01.19	  1260	   3442	A1			3.0 m/p	 68 wpm	OBWS	Dead Man's Money	
+2017.01.19	  1400	   4842	A1			2.9 m/p	 79 wpm	OBWS	Drive into Danger	
+2017.01.19	   930	   5772	A1			1.9 m/p	 75 wpm	OBWS	Escape	
+2017.01.19	  1400	   7172	A1			2.5 m/p	 81 wpm	OBWS	Fifteenth Character, The	
+2017.01.20	  1300	   8472	A1			4.1 m/p	110 wpm	OBWS	Girl on a Motorcycle	
+2018.01.21	  5440	  13912	A1/A2		0.6 m/p	220 wpm	OBW1	Wizard of Oz, The	
+                                        .
+                                        .
+                                        .
+2018.12.20	 24045	8932039	B2			2.3 m/p	120 wpm	OBW5	Great Expectations	
+2018.12.21	 22885	8954924	B2			2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The	
+2018.12.22	 24810	8979734	B2		N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The	
+2018.12.22	 15250	8994984	B1/B2	N/A	1.6 m/p	130 wpm	OBW4	African Queen, The	
+2018.12.23	 24750	9019734	B2		1.7 m/p	163 wpm	OBW5	This Rough Magic	
+---------------------------------------------------------------------------------------------------------------
+Cumulative Total: 885 books, 9019734 words read
+```
+
+
 
 ```./mktable.awk w``` (累計語数のみ表示)
 
