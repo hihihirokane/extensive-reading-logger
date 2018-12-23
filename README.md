@@ -179,8 +179,10 @@ $ ./readdone.awk o[xford] farrar --commit
 
 ```./mktable.awk``` (非要約モード) 長くなるためUN*Xコマンド```tail```と併用するとよい。
 
+```./mktable.awk -w``` (非要約モード) 画面を保存する。
+
 ```./mktable.awk w``` (累計語数のみ表示)
 
 ```./mktable.awk s OBW5``` (要約モード) 第二引数は正規表現(ERE)の場合、引用符が必要。
 
-```./mktable.awk -s s OBW5``` (要約モード) 画面を保存する。
+```./mktable.awk -w s OBW5``` (要約モード) 画面を保存する。
