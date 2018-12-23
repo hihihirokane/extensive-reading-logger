@@ -20,6 +20,7 @@ with the aid of websites like [Reading Length](https://readinglength.com/).
 (```mktable.awk```)
 する
 AWK
+(GNU Awk)
 スクリプト
 (とシェルスクリプト)
 群である。リストの検索、多読の記録・表示といった機能は
@@ -33,9 +34,10 @@ UN*X
 を用いて手動で算出するなどの必要がある。<!-- ただしその場合もエディタ等の手書きで記録を更新する必要はない。 -->
 
 ## Installation
+このスクリプトは
 GNU Awk
 ```gawk```
-が必要。
+が必要である。
 このスクリプトをインストールするには、サイト
 [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/)
 から現時点でスクリプト
@@ -47,7 +49,9 @@ GNU Awk
 ```db/```
 に置き、アプリケーションルートディレクトリからそれら
 .tsv
-ファイルへのシンボリックリンクを張る。出版社名とシンボリックリンク名の既定の対応は以下の通りである：
+ファイルへのシンボリックリンクを張る。この作業を行うスクリプト
+```install.sh```
+を用意している。出版社名とシンボリックリンク名の既定の対応は以下の通りである：
 
 出版社・ブランド|シンボリックリンク
 -----------------|-------------
@@ -57,6 +61,7 @@ Cengage/Heinle|```cengage```
 Macmillan ELT|```macmillan```
 Oxford U. Press|```oxford```
 Pearson English Readers, Penguin ELT|```pearson, penguin```
+
 
 ## Components
 
