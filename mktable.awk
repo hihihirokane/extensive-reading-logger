@@ -32,7 +32,7 @@ func print_headerhooter(nr){
 	    "---------------------------------------------------------------------------------------------------------------\n"
     }
     else
-	return "---------------------------------------------------------------------------------------------------------------"
+	return "---------------------------------------------------------------------------------------------------------------\n"
 }
 
 function print_help(){
@@ -310,7 +310,7 @@ BEGIN{
 	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
 	    print "sort " summary_file " > " record_file | "sh" # escape sequence must be erased.
 	    close("sh")
-	    close(record_file)
+	    # close(record_file)
 	}
     }
 
@@ -318,12 +318,13 @@ BEGIN{
     message = "Cumulative Total: " nr " books, " wordcount " words read"
     if(printmode == 1){
 	printf print_headerhooter(0)
-	print records print_headerhooter(nr)
+	printf records
+	printf print_headerhooter(nr)
 	print message
 	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
 	    print print_headerhooter(0) \
 		records \
-		print_headerhooter(nr) "\n" \
+		print_headerhooter(nr) \
 		message > record_file
 	    close(record_file)
 	}
