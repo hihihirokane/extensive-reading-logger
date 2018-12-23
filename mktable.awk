@@ -1,34 +1,38 @@
 #!/opt/local/bin/gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/usr/bin/awk -F "$" -f
 
-func print_record(nr){
-    printf "%s\t", $6 #date
-    printf "%6d\t", $5 #wordcount
-    printf "%7d\t", wordcount # overall
+func print_record(nr,w){
+    rec1 = ""
+    rec1 = sprintf(rec1 "%s\t", $6) #date
+    rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
+    rec1 = sprintf(rec1 "%7d\t", wordcount) # overall
     # for(j=4;j>3;j--) printf "%s\t", $j
     sub(/N\/A/,"NA",$1)
     # levelmap="awk '/^" $1 "/{print $2}' level.map"
     # levelmap | getline level
     # close(levelmap)
     # printf "%s\t", $4
-    printf "%s\t", cefr[$1]
+    rec1 = sprintf(rec1 "%s\t", cefr[$1])
     sub(/NA/,"N/A",$1)
     # printf "%s\t", $10 # 2x, 1x or N/A
-    if(noaudio[$2] && $10 == "") printf "N/A\t"; else printf "%s\t", $10 # N/A or (2x, 1.5x, 1x or 0.5x)
-    printf "%s\t", wpm
-    for(j = 1; j < 3; j++) printf "%s\t", $j
+    if(noaudio[$2] && $10 == "")
+	rec1 = sprintf(rec1 "N/A\t")
+    else rec1 = sprintf(rec1 "%s\t", $10) # N/A or (2x, 1.5x, 1x or 0.5x)
+    rec1 = sprintf(rec1 "%s\t", wpm)
+    for(j = 1; j < 3; j++)
+	rec1 = sprintf(rec1 "%s\t", $j)
     # printf "%s\t", $3
-    printf "\n"
+    return rec1 "\n"
 }
 
 func print_headerhooter(nr){
     if(nr < 1){
-	print "---------------------------------------------------------------------------------------------------------------"
-	print "Date\t\tWords\tSum\tCEFR\taudio\tmin/p\twords/m\tReader\tTitle"
-	print "---------------------------------------------------------------------------------------------------------------"
+	return "---------------------------------------------------------------------------------------------------------------\n" \
+	    "Date\t\tWords\tSum\tCEFR\taudio\tmin/p\twords/m\tReader\tTitle\n" \
+	    "---------------------------------------------------------------------------------------------------------------\n"
     }
     else
-	print "---------------------------------------------------------------------------------------------------------------"
+	return "---------------------------------------------------------------------------------------------------------------"
 }
 
 function print_help(){
@@ -98,11 +102,11 @@ function wpmcolor(wpm_s, wpm_f){
 }
 
 function getopts(){
-    while ((_go_c = getopt(ARGC, ARGV, "s")) != -1){
+    while ((_go_c = getopt(ARGC, ARGV, WriteOpt)) != -1){
     	# printf("c = <%c>, Optarg = <%s>\n",  _go_c, Optarg)
     	Opt[_go_c] = 1
     }
-    # print "Opt[_go_c]", Opt["s"]
+    # print "Opt[_go_c]", Opt["w"]
     # print "Optind", Optind
     # for (i = Optind; i < ARGC; i++)
     # 	printf("\tARGV[%d] = <%s>\n", i, ARGV[i])
@@ -152,7 +156,11 @@ BEGIN{
 
     ### Parsing command and option ###
     # argind = 1
+    WriteOpt = "w"
     argind = getopts() # index in ARGV of first nonoption argument
+    if(WriteOpt in Opt && Opt[WriteOpt] == 1){
+	record_file = "record-" today
+    }
     if(ARGV[argind] ~ /^h(elp)?/){
 	print_help()
     }
@@ -169,8 +177,8 @@ BEGIN{
 	_command = "date +%m"
 	_command | getline thismonth; close(_command)
 	# if(3 in ARGV && ARGV[argind + 2] ~ /-s/){
-	if("s" in Opt && Opt["s"] == 1){
-	    record_summary_file = ARGV[argind + 1] "-summary-" today
+	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
+	    record_file = ARGV[argind + 1] "-summary-" today
 	}
 	# thismonth = gensub(/^(.{3})/,"\\1","",$2)
     }
@@ -200,7 +208,7 @@ BEGIN{
     reading_record = "./read.done"
 
     # Prints a Table
-    if(printmode == 1) print_headerhooter(nr)
+    # if(printmode == 1) print_headerhooter(nr)
     while((getline < reading_record) > 0){
 	if(/^[ \t]*#/) continue # skip comment lines
 	if($5 <= 0) continue # skip failed cases
@@ -223,7 +231,7 @@ BEGIN{
 		# printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 		rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 		wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
-		if(! ("s" in Opt))
+		if(! (WriteOpt in Opt))
 		    wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 		wpm = rsip wpm1 " wpm"
 
@@ -261,7 +269,7 @@ BEGIN{
 	nr += 1
 	wordcount += wordcount1
 	if(printmode == 1 && wordcount1 > 0)
-	    print_record(nr)
+	    records = records print_record(nr,1)
     }
     close(reading_record)
 
@@ -299,17 +307,26 @@ BEGIN{
 	# close(summary_file_title)
 	close(summary_file)
 	print "sort " summary_file | "sh"; close("sh")
-	if("s" in Opt && Opt["s"] == 1){
-	    print "sort " summary_file " > " record_summary_file | "sh" # escape sequence must be erased.
+	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
+	    print "sort " summary_file " > " record_file | "sh" # escape sequence must be erased.
 	    close("sh")
+	    close(record_file)
 	}
     }
 
     # Prints the Footer of the Table
     message = "Cumulative Total: " nr " books, " wordcount " words read"
     if(printmode == 1){
-	print_headerhooter(nr)
+	printf print_headerhooter(0)
+	print records print_headerhooter(nr)
 	print message
+	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
+	    print print_headerhooter(0) \
+		records \
+		print_headerhooter(nr) "\n" \
+		message > record_file
+	    close(record_file)
+	}
 	# print nr " books"
 	# print wordcount " words read"
     }
