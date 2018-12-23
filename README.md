@@ -195,15 +195,15 @@ Date		Words	Sum	CEFR	audio	min/p	words/m	Reader	Title
 2017.01.19	   930	   5772	A1			1.9 m/p	 75 wpm	OBWS	Escape	
 2017.01.19	  1400	   7172	A1			2.5 m/p	 81 wpm	OBWS	Fifteenth Character, The	
 2017.01.20	  1300	   8472	A1			4.1 m/p	110 wpm	OBWS	Girl on a Motorcycle	
-2018.01.21	  5440	  13912	A1/A2		0.6 m/p	220 wpm	OBW1	Wizard of Oz, The	
+2018.01.21	  5440	  13912	A1/A2			0.6 m/p	220 wpm	OBW1	Wizard of Oz, The	
                                         .
                                         .
                                         .
 2018.12.20	 24045	8932039	B2			2.3 m/p	120 wpm	OBW5	Great Expectations	
 2018.12.21	 22885	8954924	B2			2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The	
 2018.12.22	 24810	8979734	B2		N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The	
-2018.12.22	 15250	8994984	B1/B2	N/A	1.6 m/p	130 wpm	OBW4	African Queen, The	
-2018.12.23	 24750	9019734	B2		1.7 m/p	163 wpm	OBW5	This Rough Magic	
+2018.12.22	 15250	8994984	B1/B2		N/A	1.6 m/p	130 wpm	OBW4	African Queen, The	
+2018.12.23	 24750	9019734	B2			1.7 m/p	163 wpm	OBW5	This Rough Magic	
 ---------------------------------------------------------------------------------------------------------------
 Cumulative Total: 885 books, 9019734 words read
 ```
