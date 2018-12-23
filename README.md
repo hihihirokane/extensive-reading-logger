@@ -30,7 +30,7 @@ UN*X
 [Reading Length](https://readinglength.com/)
 などから探すか、または
 [SSS式算出法](https://www.seg.co.jp/sss/word_count/how-to-count.html)
-を用いて手動で算出するなどの必要がある。ただしその場合もエディタ等の手書きで記録を更新する必要はない。
+を用いて手動で算出するなどの必要がある。<!-- ただしその場合もエディタ等の手書きで記録を更新する必要はない。 -->
 
 ## Installation
 GNU Awk
