@@ -2,8 +2,7 @@
 #!/usr/bin/awk -F "$" -f
 
 func print_record(nr,w){
-    rec1 = ""
-    rec1 = sprintf(rec1 "%s\t", $6) #date
+    rec1 = sprintf("%s\t", $6) #date
     rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
     rec1 = sprintf(rec1 "%7d\t", wordcount) # overall
     # for(j=4;j>3;j--) printf "%s\t", $j
