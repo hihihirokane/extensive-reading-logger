@@ -185,7 +185,7 @@ $ ./readdone.awk o[xford] farrar --commit
 
 #### 非要約モード
 ```read.done```
-に記載された記録を整形して表にする。表が長くなるため後述の要約モードが
+に記載された記録を整形して表にする。1レコードに1行を使用し表が長くなるため後述の要約モードが
 (多読のやりかたによっては)
 有用かもしれない。
  <!-- UN*X コマンド ```tail,head,grep``` と併用するか、 -->
@@ -225,19 +225,9 @@ Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
 Cumulative Total: 885 books, 9019734 words read
 ```
 
-#### 累計語数のみ表示
-
-* ```./mktable.awk w```
-
-使用例:
-
-```
-$ ./mktable.awk w
-9019734
-```
-
 #### 要約モード
-第二引数は正規表現(ERE)の場合、引用符が必要。
+のべ語数よりWPMを上げるのが目的で多読を行い、しかも同じタイトルのグレーデッド・リーダーを複数回読む流儀の多読には、各タイトルが当初の読みに比べてどれだけ改善したかを示す「要約モード」が有用な場合もあろう。
+第二引数は正規表現(ERE)の場合、引用符が必要である。
 * ```./mktable.awk s OBW5``` WPMが色つきで、若干ファンシーに表示される。
 * ```./mktable.awk -w s OBW5``` 画面を保存する。
 
@@ -270,6 +260,17 @@ OBW4	Big Sleep, The					N/A	128@'17	144@Apr	149@Jun	229@Aug	210@Nov
                                         .
 OBW4	We Didn't Mean to Go to Sea			N/A	131@May	155@Jul	145@Sep	162@Oct	172@Nov
 OBW4	Whispering Knights, The				N/A	n/a@'15	154@May	166@Jul	141@Sep	181@Nov
+```
+
+#### 累計語数のみ表示
+
+* ```./mktable.awk w```
+
+使用例:
+
+```
+$ ./mktable.awk w
+9019734
 ```
 
 ## Bibliography
