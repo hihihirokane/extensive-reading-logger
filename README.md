@@ -31,7 +31,7 @@ UN*X
 [Reading Length](https://readinglength.com/)
 などから探すか、または
 [SSS式算出法](https://www.seg.co.jp/sss/word_count/how-to-count.html)
-を用いて手動で算出するなどの必要がある。<!-- ただしその場合もエディタ等の手書きで記録を更新する必要はない。 -->
+を用いて手動で算出する必要がある。<!-- ただしその場合もエディタ等の手書きで記録を更新する必要はない。 -->
 
 ## Installation
 このスクリプトは
@@ -44,16 +44,17 @@ GNU Awk
 ```readdone.awk```
 で指定できる出版社・ブランド
 に対応した
-.tsv
-ファイルをダウンロードしてディレクトリ
+GR
+リスト
+(.tsv
+ファイル)
+をユーザー自身でダウンロードしてディレクトリ
 ```db/```
-に置き、アプリケーションルートディレクトリからそれら
+下に置き、アプリケーションルートディレクトリから、それら
 .tsv
-ファイルへのシンボリックリンクを張る。この作業を行うスクリプト
-```install.sh```
-を用意している。出版社名とシンボリックリンク名の既定の対応は以下の通りである：
+ファイルへのシンボリックリンクを張る。出版社名とシンボリックリンク名の既定の対応は以下の通りである：
 
-出版社・ブランド|シンボリックリンク
+出版社・ブランド|シンボリックリンク名
 -----------------|-------------
 Black Cat - Cideb|```blackcat```
 Cambridge U. Press|```cambridge```
@@ -62,12 +63,19 @@ Macmillan ELT|```macmillan```
 Oxford U. Press|```oxford```
 Pearson English Readers, Penguin ELT|```pearson, penguin```
 
+ダウンロードして以降の作業を行うスクリプト
+```install.sh```
+をリリースに含めている。
+GR
+リスト自体をリリースに含めてよいかどうかは、今後
+ERF
+に問い合わせる予定である。
 
 ## Components
 
 1. ```readdone.awk``` 検索と記録。結果は ```read.done``` に書き込まれる。
 1. ```mktable.awk``` 多読記録の表示。```read.done``` が必要。
-1. ```install.sh``` [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/) (2018年12月24日現在) をインストールする。
+1. ```install.sh``` [ERF Graded Reader List](https://sites.google.com/site/erfgrlist/) をインストールする。
 
 以下はおまけである。
 
@@ -104,9 +112,9 @@ Oxford Reading Tree
 Brat Farrar, Oxford Bookworms Library Stage 5
 を指定したい場合、第2引数は大文字と小文字を区別せず、また拡張正規表現
 (ERE)
-も指定できるが、その場合には(二重)引用符が必要である。この例では単に
+も指定できるが、その場合には(二重)引用符が必要である。以下の例では単に
 ```farrar```
-と指定する。
+と指定している。
 
 ```
 $ ./readdone.awk o[xford] farrar
@@ -119,7 +127,7 @@ OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2018.12.06
 
 コマンド中に
 ```--commit```
-オプションがない場合には記録せず、上記の様にメッセージを出す。
+オプションがない場合にはファイルに記録せず、上記の様にメッセージを出す。
 
 <!-- `o[xford], penguin(pearson), cambridge, cengage(heinle),
 macmillan, blackcat` のみを用意している。 -->
@@ -148,12 +156,12 @@ $ ./readdone.awk o[xford] farrar --commit
 ```whole```
 を指定し、またはその測ったページ数を指定する。
 第4引数の時間表現は、
-```10m```
+```100m```
 とか
 ```600s```
 といった冗長さを許して指定できる。第5引数は総ページ数である。
-* **1冊まるごと**の時間を測った場合 ```./readdone.awk o[xford] farrar w[hole] [0h]200m[0s] 88 --commit```
-* **ある5ページ**の時間を測った場合 ```./readdone.awk o[xford] farrar 5 [0h]10m[0s] 88 --commit```
+* **1冊まるごと**の時間を測った場合 ```./readdone.awk o[xford] farrar w[hole] [0h][200m][0s] 88 --commit```
+* **ある5ページ**の時間を測った場合 ```./readdone.awk o[xford] farrar 5 [0h][10m][0s] 88 --commit```
 
 各リーダーの読書時間とページ数を**入力する**場合には、検索の時点で結果が1件になるまで絞る必要がある。逆に、各リーダーの読書時間とページ数を**入力しない**場合には、検索の時点で結果が1件になるまで絞る必要はなく、したがって複数のリーダーを一度に登録できる。この場合に第2引数を正規表現を指定できるのは有用である。
 
@@ -189,16 +197,16 @@ $ ./readdone.awk o[xford] farrar --commit
 (多読のやりかたによっては)
 有用かもしれない。
  <!-- UN*X コマンド ```tail,head,grep``` と併用するか、 -->
-* ```./mktable.awk``` WPMが色つきで、若干ファンシーに表示される。速さとその意味とその色との関係は以下の通りであり、速さの意味は『快読100万語』におおよそ倣った。
+* ```./mktable.awk``` WPMが色つきで、若干ファンシーに表示される。速さとその意味とその色との関係は以下の通りであり、速さの意味は『快読100万語』[1]におおよそ倣った。
 * ```./mktable.awk -w``` 画面を保存する。
 
 速度|WPMの色|意味
 -----------------|-------------|------
-200-|![#00ffff](https://placehold.it/15/00ffff/000000?text=+) `シアン(#00ffff)`|簡単すぎる
-150-200|![#005fff](https://placehold.it/15/005fff/000000?text=+) `ドッジブルー(#005fff)`|十分に速いので、レベルを上げてよい
+200-|![#00ffff](https://placehold.it/15/00ffff/000000?text=+) `シアン(#00ffff)`|十分に速いので、レベルを上げよう
+150-200|![#005fff](https://placehold.it/15/005fff/000000?text=+) `ドッジブルー(#005fff)`|レベルを上げてよいが、留まってもよい
 100-150|無色|このレベルが現在の訓練に適している
 75-100|![#ffff00](https://placehold.it/15/ffff00/000000?text=+) `イエロー(#ffff00)`|読むのが辛ければレベル下げを検討すべき
--75|![#ff0000](https://placehold.it/15/ff0000/000000?text=+) `レッド(#ff0000)`|難しすぎる
+-75|![#ff0000](https://placehold.it/15/ff0000/000000?text=+) `レッド(#ff0000)`|おそらく難しすぎる
 
 
 使用例:
