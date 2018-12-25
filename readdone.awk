@@ -14,7 +14,7 @@ function init(){
     DBN[6,"name"] = "penguin"
     DBN[7,"name"] = "pearson"
     # How many first letters to choose a db uniquely
-    DBN[0,"prefix"] = 2 # [na] or [NA]
+    DBN[0,"prefix"] = 3 # [n/a] or [N/A], though [na] and [NA] have to be OK
     DBN[1,"prefix"] = 1
     DBN[2,"prefix"] = 2 # [ca]mbridge
     DBN[3,"prefix"] = 2 # [ce]ngage
@@ -79,21 +79,21 @@ BEGIN{
     close(date)
 
     DBNAME = ARGV[1]
-    if(DBNAME ~ /peng?u?i?n?/)
+    if(DBNAME ~ /^pen(g(u(in?)?)?)?$/)
 	dbno = 6
-    else if(DBNAME ~ /pear?s?o?n?/)
+    else if(DBNAME ~ /^pea(r(s(on?)?)?)?$/)
 	dbno = 7
-    else if(DBNAME ~ /cam?b?r?i?d?g?e?/)
+    else if(DBNAME ~ /^ca(m(b(r(i(d(ge?)?)?)?)?)?)?$/)
 	dbno = 2
-    else if(DBNAME ~ /(cen?g?a?g?e?|he?i?n?l?e?)/)
+    else if(DBNAME ~ /^(ce(n(g(a(ge?)?)?)?)?|h(e(i(n(le?)?)?)?)?)$/)
 	dbno = 3
-    else if(DBNAME ~ /ma?c?m?i?l?l?a?n?/)
+    else if(DBNAME ~ /^m(a(c(m(i(l(l(an?)?)?)?)?)?)?)?$/)
 	dbno = 4
-    else if(DBNAME ~ /ox?f?o?r?d?/)
+    else if(DBNAME ~ /^o(x(f(o(rd?)?)?)?)?$/) #/ox?f?o?r?d?/ -> /(o|ox|oxf|oxfo|oxfor|oxford)/
 	dbno = 5
-    else if(DBNAME ~ /(bl?a?c?k?c?a?t?)/)
+    else if(DBNAME ~ /^b(l(a(c(k(c(at?)?)?)?)?)?)?$/)
 	dbno = 1
-    else if(DBNAME ~ /[nN][aA]?/)
+    else if(DBNAME ~ /^[nN](\/)?[aA]?$/)
 	dbno = 0
     else{
 	print "no db"; exit
