@@ -1,9 +1,11 @@
 #!/opt/local/bin/gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/usr/bin/awk -F "$" -f
 
-func print_record(nr,w){
+func print_record(){
     rec1 = sprintf("%s\t", $6) #date
-    rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
+    if($10 == "quit")
+	rec1 = sprintf(rec1 "%6d\t", 0) #wordcount
+    else rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
     rec1 = sprintf(rec1 "%7d\t", wordcount) # overall
     # for(j=4;j>3;j--) printf "%s\t", $j
     sub(/N\/A/,"NA",$1)
@@ -16,6 +18,8 @@ func print_record(nr,w){
     # printf "%s\t", $10 # 2x, 1x or N/A
     if(noaudio[$2] && $10 == "")
 	rec1 = sprintf(rec1 "N/A\t")
+    else if($10 == "quit")
+	rec1 = sprintf(rec1 "quit\t")
     else rec1 = sprintf(rec1 "%s\t", $10) # N/A or (2x, 1.5x, 1x or 0.5x)
     rec1 = sprintf(rec1 "%s\t", wpm)
     for(j = 1; j < 3; j++)
@@ -248,7 +252,7 @@ BEGIN{
 		wpml = "n/a@" trimdate($6) # $6 : date
 	}
 
-	if(printmode == 2 && $10 == ""){ # only if a book is read in silent (no aloud or no audio)
+	if(printmode == 2 && ($10 == "" || $10 == "quit")){ # only if a book is read in silent (no aloud or no audio)
 	    # booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
 	    # booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)
 	    booktitle = short_title($2)
@@ -265,10 +269,12 @@ BEGIN{
 	#     # print_record()
 	#     # print #$5
 	# }
-	nr += 1
-	wordcount += wordcount1
-	if(printmode == 1 && wordcount1 > 0)
-	    records = records print_record(nr,1)
+	if($10 != "quit"){
+	    wordcount += wordcount1
+	    nr += 1
+	}
+	if(printmode == 1)
+	    records = records print_record()
     }
     close(reading_record)
 
