@@ -226,6 +226,7 @@ Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
                                         .
 2018.12.20	 24045	8932039	B2			2.3 m/p	120 wpm	OBW5	Great Expectations	
 2018.12.21	 22885	8954924	B2			2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The	
+2018.12.21	     0	9083409	B2		quit	5.2 m/p	 53 wpm	OBW5	Sense and Sensibility
 2018.12.22	 24810	8979734	B2		N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The	
 2018.12.22	 15250	8994984	B1/B2		N/A	1.6 m/p	130 wpm	OBW4	African Queen, The	
 2018.12.23	 24750	9019734	B2			1.7 m/p	163 wpm	OBW5	This Rough Magic	
