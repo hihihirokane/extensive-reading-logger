@@ -231,13 +231,18 @@ Date		Words	Sum	CEFR	audio	min/p	words/m	Reader	Title
                                         .
 2018.12.20	 24045	8932039	B2		2.3 m/p	120 wpm	OBW5	Great Expectations
 2018.12.21	 22885	8954924	B2		2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The
-2018.12.21	     0	9083409	B2	quit	5.2 m/p	 53 wpm	OBW5	Sense and Sensibility
+2018.12.21	     0	8954924	B2	quit	5.2 m/p	 53 wpm	OBW5	Sense and Sensibility
 2018.12.22	 24810	8979734	B2	N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The
 2018.12.22	 15250	8994984	B1/B2	N/A	1.6 m/p	130 wpm	OBW4	African Queen, The
 2018.12.23	 24750	9019734	B2		1.7 m/p	163 wpm	OBW5	This Rough Magic
 ---------------------------------------------------------------------------------------------------------------
 Cumulative Total: 885 books, 9019734 words read
 ```
+「投げ出した」場合の記録も含まれ、その行の
+```audio```
+欄に
+```quit```
+と表示される。また、読了したのべ冊数にも数えないし、その本の語数も数えないので語数は0である。
 
 #### 要約モード
 のべ語数よりWPMを上げるのが目的で多読を行い、しかも同じタイトルのグレーデッド・リーダーを複数回読む流儀の多読には、各タイトルが当初の読みに比べてどれだけ改善したかを示す「要約モード」が有用な場合もあろう。同一タイトルの読書記録は同じ行にできるだけ詰めて表示され、
