@@ -219,22 +219,22 @@ $ ./readdone.awk o[xford] farrar --commit
 ```
 $ ./mktable.awk
 ---------------------------------------------------------------------------------------------------------------
-Date		Words	Sum	CEFR		audio	min/p	words/m	Reader	Title
+Date		Words	Sum	CEFR	audio	min/p	words/m	Reader	Title
 ---------------------------------------------------------------------------------------------------------------
-2017.01.17	  1292	   1292	A1					OBWS	Cat, The	
-2017.01.17	   890	   2182	A1					OBWS	Connecticut Yankee in King Arthur's Court, A	
-2017.01.19	  1260	   3442	A1					OBWS	Dead Man's Money	
-2017.01.19	  1400	   4842	A1					OBWS	Drive into Danger	
-2018.01.21	  5440	  10282	A1/A2			0.6 m/p	220 wpm	OBW1	Wizard of Oz, The	
+2017.01.17	  1292	   1292	A1				OBWS	Cat, The
+2017.01.17	   890	   2182	A1				OBWS	Connecticut Yankee in King Arthur's Court, A
+2017.01.19	  1260	   3442	A1				OBWS	Dead Man's Money
+2017.01.19	  1400	   4842	A1				OBWS	Drive into Danger
+2018.01.21	  5440	  10282	A1/A2		0.6 m/p	220 wpm	OBW1	Wizard of Oz, The
                                         .
                                         .
                                         .
-2018.12.20	 24045	8932039	B2			2.3 m/p	120 wpm	OBW5	Great Expectations	
-2018.12.21	 22885	8954924	B2			2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The	
-2018.12.21	     0	9083409	B2		quit	5.2 m/p	 53 wpm	OBW5	Sense and Sensibility
-2018.12.22	 24810	8979734	B2		N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The	
-2018.12.22	 15250	8994984	B1/B2		N/A	1.6 m/p	130 wpm	OBW4	African Queen, The	
-2018.12.23	 24750	9019734	B2			1.7 m/p	163 wpm	OBW5	This Rough Magic	
+2018.12.20	 24045	8932039	B2		2.3 m/p	120 wpm	OBW5	Great Expectations
+2018.12.21	 22885	8954924	B2		2.6 m/p	101 wpm	OBW5	Riddle of the Sands, The
+2018.12.21	     0	9083409	B2	quit	5.2 m/p	 53 wpm	OBW5	Sense and Sensibility
+2018.12.22	 24810	8979734	B2	N/A	2.6 m/p	106 wpm	OBW5	Accidental Tourist, The
+2018.12.22	 15250	8994984	B1/B2	N/A	1.6 m/p	130 wpm	OBW4	African Queen, The
+2018.12.23	 24750	9019734	B2		1.7 m/p	163 wpm	OBW5	This Rough Magic
 ---------------------------------------------------------------------------------------------------------------
 Cumulative Total: 885 books, 9019734 words read
 ```
