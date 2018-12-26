@@ -238,8 +238,10 @@ BEGIN{
 		    wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 		wpm = rsip wpm1 " wpm"
 
-		if(printmode == 2)
+		if(printmode == 2 && $10 != "quit")
 		    wpml = wpm1 "@" trimdate($6) # $6 : date
+		else if(printmode == 2) # shows a quitted try
+		    wpml = wpm1 "X" trimdate($6) # $6 : date
 	    }
 	    else{ # $9 == 0 # no read page
 	    	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
