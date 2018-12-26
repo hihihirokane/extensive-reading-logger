@@ -122,6 +122,10 @@ function short_title(origtitle){
     return gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", origtitle)
 }
 
+function quit_whole(file, nr){
+    printf "%s:%d, A quit try cannot read the w[hole] of the book\n", file, nr  > "/dev/stderr"
+}
+
 BEGIN{
     ### Initialize ###
     FS = "\t" # field separator
@@ -212,15 +216,18 @@ BEGIN{
 
     # Prints a Table
     # if(printmode == 1) print_headerhooter(nr)
-    while((getline < reading_record) > 0){
-	if(/^[ \t]*#/) continue # skip comment lines
-	if($5 <= 0) continue # skip failed cases
+    sk = 0;
+    for(nr = 0; (getline < reading_record) > 0;){
+	if(/^[ \t]*#/){ sk++; continue } # skip comment lines
+	if($5 <= 0){ sk++; continue } # skip failed cases
 	wordcount1 = $5 # words a whole book has (integer)
 	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(w(hole)?|[0-9]+)/){
 	    wpm = "" # initialize
 	    min = conv_to_min($8) # time which it took to read
 	    # if($9 > 0){
-	    if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
+	    if($7 ~ /w(hole)?/ && $10 == "quit"){ # A quit try cannot read the w[hole] of the book
+		quit_whole(reading_record, nr + sk + 1); continue
+	    }else if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
 		pages = $9
 	    else pages = $7
 	    # }
@@ -271,10 +278,11 @@ BEGIN{
 	#     # print_record()
 	#     # print #$5
 	# }
-	if($10 != "quit"){
+	nr += 1
+	if($10 == "quit")
+	    unr++
+	else
 	    wordcount += wordcount1
-	    nr += 1
-	}
 	if(printmode == 1)
 	    records = records print_record()
     }
@@ -322,7 +330,7 @@ BEGIN{
     }
 
     # Prints the Footer of the Table
-    message = "Cumulative Total: " nr " books, " wordcount " words read"
+    message = "Cumulative Total: " nr - unr " books, " wordcount " words read"
     if(printmode == 1){
 	printf print_headerhooter(0)
 	printf records
