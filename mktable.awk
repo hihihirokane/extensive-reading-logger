@@ -16,10 +16,10 @@ func print_record(){
     rec1 = sprintf(rec1 "%s\t", cefr[$1])
     sub(/NA/,"N/A",$1)
     # printf "%s\t", $10 # 2x, 1x or N/A
-    if(noaudio[$2] && $10 == "")
+    if($10 == "quit")
+    	rec1 = sprintf(rec1 "quit\t")
+    else if(noaudio[$2])
 	rec1 = sprintf(rec1 "N/A\t")
-    else if($10 == "quit")
-	rec1 = sprintf(rec1 "quit\t")
     else rec1 = sprintf(rec1 "%s\t", $10) # N/A or (2x, 1.5x, 1x or 0.5x)
     rec1 = sprintf(rec1 "%s\t", wpm)
     for(j = 1; j < 3; j++)
