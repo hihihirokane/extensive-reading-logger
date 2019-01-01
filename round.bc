@@ -1,0 +1,27 @@
+define i(f){
+   auto s
+   s = scale
+   scale = 0
+   f /= 1
+   scale = s
+   return f
+}
+# print "Test:\n";
+# print i(5.1);
+
+define round(f){
+    auto s
+    s = scale
+    int = i(f)
+    scale = 20
+    rem = f - int
+    scale = s
+    if(rem >= 0.5){
+        ret = int + 1
+    }else{
+        ret = int
+    }
+    return ret
+}
+# print round(5.1)
+# print round(5.5)
