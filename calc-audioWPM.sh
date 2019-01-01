@@ -18,15 +18,15 @@ function getduration () {
 printf " 1x WPM\t   1.5x\t     2x\tSERIES\tTITLE\n" # title of columns
 for pls in playlist/* # pls: iTunesから出したプレイリスト
 do
-    # plsname: シリーズとタイトル(空白,ドット"."あり)
+    # plsname: ERF Code and title, including space ' ' and full stop "."
+    # plsname=`printf "$pls" | cut -f2 -d/ | cut -f1 -d.`
     plsname=`printf "$pls" | cut -f2 -d/ | sed 's/\.txt//'`
     if [ "$plsname" = "note" ]; then continue; fi
-    # stage: 本のシリーズとレベル略号
-    # title: 正味のタイトル(空白あり)
-    # plsname=`printf "$pls" | cut -f2 -d/ | cut -f1 -d.`
+    # stage: ERF Code, which consists of series and difficulty (level)
+    # title: the title of a reader, including space charactes ' '
     stage=`printf "$plsname" | cut -f1 -d' '`
     title=`printf "$plsname" | sed 's/'"$stage"' //'`
-    # words: 本の語数(整数)
+    # words: word count per book (integers)
     # words=`cat oxford penguin | awk -Ft '$1 ~ /'$stage'/ && $3 ~ /'"$title"'/{sub(/,/, "", $11);print $11}'` # titleの大文字小文字の差を吸収できない
     words=`cat oxford penguin cambridge | grep "$stage" | grep -i "$title" | awk -Ft '{sub(/,/, "", $11);print $11}'` # 任意の出版社のシリーズに対応したい。シリーズ(e.g. CER3, OBW4)からdbを引くには？
     # printf "%d\n" "$words"
