@@ -3,9 +3,14 @@
 
 # getduration(): get the duration (seconds) of an audiobook out of iTunes playlists
 # arg $1: playlist exported from iTunes "playlist/$1"
+
+function viewpl(){
+    awk -Ft '{gsub(//,"\n");print}' "$1"
+}
+
 function getduration () {
     # awk -Ft '{gsub(//,"\n");print}' "$1" | awk -Ft '{if(NR>1)sum+=$8}END{printf "%dm%ds\n",int(sum/60),sum%60;}'
-    awk -Ft '{gsub(//,"\n");print}' "$1" | awk -Ft '{if(NR > 1) sum += $8}END{print sum}'
+    viewpl "$1" | awk -Ft 'NR > 1{sum += $8}END{print sum}'
 }
 
 # printf "  WPM\t  1.5x\tSERIES\tTITLE\n" # コラム見出し
@@ -14,10 +19,11 @@ printf " 1x WPM\t   1.5x\t     2x\tSERIES\tTITLE\n" # title of columns
 for pls in playlist/* # pls: iTunesから出したプレイリスト
 do
     # plsname: シリーズとタイトル(空白,ドット"."あり)
+    plsname=`printf "$pls" | cut -f2 -d/ | sed 's/\.txt//'`
+    if [ "$plsname" = "note" ]; then continue; fi
     # stage: 本のシリーズとレベル略号
     # title: 正味のタイトル(空白あり)
     # plsname=`printf "$pls" | cut -f2 -d/ | cut -f1 -d.`
-    plsname=`printf "$pls" | cut -f2 -d/ | sed 's/\.txt//'`
     stage=`printf "$plsname" | cut -f1 -d' '`
     title=`printf "$plsname" | sed 's/'"$stage"' //'`
     # words: 本の語数(整数)
