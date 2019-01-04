@@ -1,0 +1,13 @@
+0.2 (next)
+0.1
+  - First release
+  - Added the summary mode.
+  - In the summary mode, it's invoked with the command 's' as
+    the first argument.
+  - In the summary mode, the name of the series needs to be put
+    as the second argument.
+  - put color on the wpm whose color depends on the reading speed.
+  - added accum.sh
+  - New option -w is introduced for the screen tee-ing as a text
+    file.
+  - Newly introduced install.sh for installation
