@@ -3,7 +3,8 @@
 
 func print_record(){
     rec1 = sprintf("%s\t", $6) #date
-    if($10 == "quit")
+    # if($10 == "quit" || $10 == "suspended" || $10 == "res+sus")
+    if($10 ~ /(quit|suspended|res+sus)/)
 	rec1 = sprintf(rec1 "%6d\t", 0) #wordcount
     else rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
     rec1 = sprintf(rec1 "%7d\t", wordcount) # overall
@@ -16,14 +17,20 @@ func print_record(){
     rec1 = sprintf(rec1 "%s\t", cefr[$1])
     sub(/NA/,"N/A",$1)
     # printf "%s\t", $10 # 2x, 1x or N/A
-    if($10 == "quit")
-    	rec1 = sprintf(rec1 "quit\t")
+    if($10 ~ /(suspended|resumed|res\+sus)/ && VerboseOpt in Opt)
+	rec1 = sprintf(rec1 "%3.0f%%\t", $7 / $9 * 100)
+    else if($10 ~ /quit/)
+	rec1 = sprintf(rec1 "quit\t")
     else if(noaudio[$2])
 	rec1 = sprintf(rec1 "N/A\t")
+    else if($10 ~ /resumed/)
+	rec1 = sprintf(rec1 "\t")
     else rec1 = sprintf(rec1 "%s\t", $10) # N/A or (2x, 1.5x, 1x or 0.5x)
     rec1 = sprintf(rec1 "%s\t", wpm)
     for(j = 1; j < 3; j++)
 	rec1 = sprintf(rec1 "%s\t", $j)
+    if(DebugOpt in Opt)
+	rec1 = sprintf(rec1 "%s\t", $12)
     # printf "%s\t", $3
     return rec1 "\n"
 }
@@ -105,7 +112,7 @@ function wpmcolor(wpm_s, wpm_f){
 }
 
 function getopts(){
-    while ((_go_c = getopt(ARGC, ARGV, WriteOpt)) != -1){
+    while ((_go_c = getopt(ARGC, ARGV, Options)) != -1){
     	# printf("c = <%c>, Optarg = <%s>\n",  _go_c, Optarg)
     	Opt[_go_c] = 1
     }
@@ -123,7 +130,7 @@ function short_title(origtitle){
 }
 
 function quit_whole(file, nr){
-    printf "%s:%d, A quit try cannot read the w[hole] of the book\n", file, nr  > "/dev/stderr"
+    printf "%s:%d, A quit or suspended try cannot read the w[hole] of the book\n", file, nr  > "/dev/stderr"
 }
 
 BEGIN{
@@ -164,6 +171,10 @@ BEGIN{
     ### Parsing command and option ###
     # argind = 1
     WriteOpt = "w"
+    VerboseOpt = "v"
+    DebugOpt = "d"
+    Options = DebugOpt VerboseOpt WriteOpt
+    # Options = WriteOpt
     argind = getopts() # index in ARGV of first nonoption argument
     if(WriteOpt in Opt && Opt[WriteOpt] == 1){
 	record_file = "record-" today
@@ -223,17 +234,33 @@ BEGIN{
 	wordcount1 = $5 # words a whole book has (integer)
 	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(w(hole)?|[0-9]+)/){
 	    wpm = "" # initialize
-	    min = conv_to_min($8) # time which it took to read
-	    # if($9 > 0){
 	    if($7 ~ /w(hole)?/ && $10 == "quit"){ # A quit try cannot read the w[hole] of the book
 		quit_whole(reading_record, nr + sk + 1); continue
-	    }else if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
-		pages = $9
-	    else pages = $7
-	    # }
+	    }else if($7 ~ /w(hole)?/ && $10 == "suspended"){ # A suspendeded try cannot read the w[hole] of the book
+		quit_whole(reading_record, nr + sk + 1); continue
+	    }else if($7 ~ /w(hole)?/ && $10 == "res+sus"){ # A suspendeded try cannot read the w[hole] of the book
+		quit_whole(reading_record, nr + sk + 1); continue
+	    }
+	    min = conv_to_min($8) # time which it took to read
+	    if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
+		$7 = $9
+	    pages = $7
+	    if($10 ~ /(res\+sus|resumed)/)
+		min += time[$1][$2]
+	    if($10 ~ /(suspended|res\+sus)/){
+		time[$1][$2] = min
+		page[$1][$2] = pages
+	    }else if($10 ~ /(quit|resumed)/){
+		time[$1][$2] = 0
+		page[$1][$2] = 0
+	    }
+	    if(DebugOpt in Opt && Opt[DebugOpt] && $10 ~ /(quit|suspended|res\+sus|resumed)/)
+	    	$12 = sprintf("pp. %d\t%.1f m", pages, min)
+	    # else if(DebugOpt in Opt)
+	    # 	$12 = sprintf("pp. %d\t%.1f m", pages, min)
 	    ReadingSpeedInPage = min / pages
 
-	    if($9 > 0){ # when there exist read pages
+	    if($9){ # when the user read some pages
 		wholepages = $9 # overall pages a whole book has
 		WordsPerPage = wordcount1 / wholepages
 		ReadingSpeedInWord = pages / min * WordsPerPage
@@ -245,10 +272,10 @@ BEGIN{
 		    wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 		wpm = rsip wpm1 " wpm"
 
-		if(printmode == 2 && $10 != "quit")
+		if(printmode == 2 && $10 ~ /(^$|resumed)/)
 		    wpml = wpm1 "@" trimdate($6) # $6 : date
-		else if(printmode == 2) # shows a quitted try
-		    wpml = wpm1 "X" trimdate($6) # $6 : date
+		else if(printmode == 2 && $10 ~ /^quit$/) # shows a quitted try
+		    wpml = wpm1 "!" trimdate($6) # $6 : date
 	    }
 	    else{ # $9 == 0 # no read page
 	    	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
@@ -261,7 +288,8 @@ BEGIN{
 		wpml = "n/a@" trimdate($6) # $6 : date
 	}
 
-	if(printmode == 2 && ($10 == "" || $10 == "quit")){ # only if a book is read in silent (no aloud or no audio)
+	# if(printmode == 2 && ($10 == "" || $10 == "quit" || $10 == "resumed")){ # only if a book is read in silent (no aloud or no audio)
+	if(printmode == 2 && $10 ~ /(^$|quit|resumed)/){ # only if a book is read in silent (no aloud or no audio)
 	    # booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
 	    # booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)
 	    booktitle = short_title($2)
@@ -279,12 +307,17 @@ BEGIN{
 	#     # print #$5
 	# }
 	nr += 1
-	if($10 == "quit")
+	if($10 ~ /(quit|suspended|res\+sus)/)
 	    unr++
 	else
 	    wordcount += wordcount1
-	if(printmode == 1)
-	    records = records print_record()
+	if(printmode == 1){
+	    if($10 ~ /(suspended|res\+sus)/){
+		if(VerboseOpt in Opt)
+		    records = records print_record()
+	    }
+	    else records = records print_record()
+	}
     }
     close(reading_record)
 
