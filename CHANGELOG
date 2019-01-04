@@ -1,4 +1,4 @@
-0.2 (next)
+0.2
   - New option -d is introduced for debugging which shows taken
     time to read in minutes
   - New option -v is introduced for verbose mode which shows split
