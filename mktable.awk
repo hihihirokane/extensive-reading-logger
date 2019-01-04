@@ -4,7 +4,7 @@
 func print_record(){
     rec1 = sprintf("%s\t", $6) #date
     # if($10 == "quit" || $10 == "suspended" || $10 == "res+sus")
-    if($10 ~ /(quit|suspended|res+sus)/)
+    if($10 ~ /(quit|suspended|res\+sus)/)
 	rec1 = sprintf(rec1 "%6d\t", 0) #wordcount
     else rec1 = sprintf(rec1 "%6d\t", $5) #wordcount
     rec1 = sprintf(rec1 "%7d\t", wordcount) # overall
