@@ -1,4 +1,8 @@
 0.2 (next)
+  - New option -d is introduced for debugging which shows taken
+    time to read in minutes
+  - New option -v is introduced for verbose mode which shows split
+    records. When -v isn't put each reader has a record at a try
 0.1
   - First release
   - Added the summary mode.
