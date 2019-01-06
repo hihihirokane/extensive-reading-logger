@@ -190,7 +190,7 @@ BEGIN{
     for(i = 0; i < resultno; ++i)
 	print result[i] >> reading_records
     close(reading_records)
-    if(system(mkdir) == 0 && system(backup) == 0){
+    if(system(mkdir) == 0 && system(backup) == 0 && (6 in ARGV) && ARGV[6] !~ /(quit|suspended|res\+sus)/){
 	calc_wordcount | getline wordcount; close(calc_wordcount)
 	print wordcount " words read"
 	# print backup
