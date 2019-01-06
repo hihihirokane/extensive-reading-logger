@@ -9,4 +9,5 @@ penguin="Penguin ELT - Penguin.tsv"
 
 for i in blackcat cambridge cengage macmillan oxford pearson penguin
 do ln -s db/"${!i}" $i
+echo "$i" >> dblist
 done || exit 1
