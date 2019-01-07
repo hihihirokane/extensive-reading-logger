@@ -28,3 +28,5 @@ done || exit 1
 while read db; do
     awk 'BEGIN{OFS="\t"}NR>3{print$1,"'$db'"}' $db | sort | uniq >> "$SERIESDB"
 done < "$DBLIST"
+
+# ./calc-audioWPM.sh > audio-WPM
