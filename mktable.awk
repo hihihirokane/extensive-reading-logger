@@ -21,6 +21,9 @@ func print_record(){
 	rec1 = sprintf(rec1 "%3.0f%%\t", $7 / $9 * 100)
     else if($10 ~ /quit/)
 	rec1 = sprintf(rec1 "quit\t")
+    else if(!noaudio[$2] && DebugOpt in Opt)
+	rec1 = audiospeed[$1][$2] ? sprintf(rec1 "%3.0f WPM\t", audiospeed[$1][$2]) : sprintf(rec1 " ?  WPM\t")
+	# rec1 = sprintf(rec1 "quit\t")
     else if(noaudio[$2])
 	rec1 = sprintf(rec1 "N/A\t")
     else if($10 ~ /resumed/)
@@ -222,6 +225,17 @@ BEGIN{
     audio[0]=""
     audio[1]="NA"
 
+    # Audio speed as a reference
+    if(DebugOpt in Opt){
+	calccomm = "./calc-audioWPM.awk"
+	while((calccomm | getline) > 0){
+	    if($4 == "TITLE") continue;
+	    # print $4 > "/dev/stderr"
+	    audiospeed[$3][$4] = $1
+	}
+	close(calccomm)
+    }
+
     # Reading Record file
     reading_record = "./read.done"
 
@@ -245,6 +259,7 @@ BEGIN{
 	    if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
 		$7 = $9
 	    pages = $7
+	    # if(DebugOpt in Opt) print pages,min > "/dev/stderr"
 	    if($10 ~ /(quit|res\+sus|resumed)/)
 		min += time[$1][$2]
 	    if($10 ~ /(suspended|res\+sus)/){
@@ -254,7 +269,8 @@ BEGIN{
 		time[$1][$2] = 0
 		page[$1][$2] = 0
 	    }
-	    if(DebugOpt in Opt && Opt[DebugOpt] && $10 ~ /(quit|suspended|res\+sus|resumed)/)
+	    # if(DebugOpt in Opt && Opt[DebugOpt] && $10 ~ /(quit|suspended|res\+sus|resumed)/)
+	    if(DebugOpt in Opt)
 	    	$12 = sprintf("pp. %d\t%.1f m", pages, min)
 	    # else if(DebugOpt in Opt)
 	    # 	$12 = sprintf("pp. %d\t%.1f m", pages, min)
@@ -320,6 +336,7 @@ BEGIN{
 	}
     }
     close(reading_record)
+    min = 0
 
     # Prints the Summary instead of the Table
     if(printmode == 2){

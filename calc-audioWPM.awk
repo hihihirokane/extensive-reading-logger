@@ -14,8 +14,8 @@ function viewpl(path){
 }
 
 # getduration(): get the duration (seconds) of an audiobook out of iTunes playlists
-# arg $1: playlist exported from iTunes "playlist/$1"
-# arg $2: the 2nd argment of `column of time' depends on iTunes versions
+# arg path: playlist exported from iTunes "playlist/$1"
+# arg time: the 2nd argment of `column of time' depends on iTunes versions
 function getduration (path, time) {
     # awk -Ft '{gsub(/#/,"\n");print}' "$1" | awk -Ft '{if(NR>1)sum+=$8}END{printf "%dm%ds\n",int(sum/60),sum%60;}'
     # 'NR > 1{sum += $8}END{print sum}'
@@ -44,7 +44,7 @@ function help(){
 BEGIN{
     os = detectOS()
     # print os
-    if(os ~ /darwin.*/){
+    if(os ~ /darwin/){
 	# iTunesVer1 = "mdls -name kMDItemVersion /Applications/iTunes.app/"
 	# iTunesVer1 | getline itunesver; close(iTunesVer1)
 	iTunesVer2 = "osascript -e 'tell application \"iTunes\" to set safariVersion to version'"
