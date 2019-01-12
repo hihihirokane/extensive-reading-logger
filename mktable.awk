@@ -30,10 +30,12 @@ func print_record(){
 	rec1 = sprintf(rec1 "\t")
     else rec1 = sprintf(rec1 "%s\t", $10) # N/A or (2x, 1.5x, 1x or 0.5x)
     rec1 = sprintf(rec1 "%s\t", wpm)
+    if(DebugOpt in Opt){
+	rec1 = sprintf(rec1 "%s\t", $12)
+	rec1 = sprintf(rec1 "%5d m\t", $13)
+    }
     for(j = 1; j < 3; j++)
 	rec1 = sprintf(rec1 "%s\t", $j)
-    if(DebugOpt in Opt)
-	rec1 = sprintf(rec1 "%s\t", $12)
     # printf "%s\t", $3
     return rec1 "\n"
 }
@@ -41,7 +43,7 @@ func print_record(){
 func print_headerhooter(nr){
     if(nr < 1){
 	return "---------------------------------------------------------------------------------------------------------------\n" \
-	    "Date\t\tWords\tSum\tCEFR\taudio\tmin/p\twords/m\tReader\tTitle\n" \
+	    "Date\t\tWords\tSum\tCEFR\taudio\tmin/p\twords/m\t"(DebugOpt in Opt ? "Pages\tTime(m)\tTotal(m)\t" : "") "Reader\tTitle\n" \
 	    "---------------------------------------------------------------------------------------------------------------\n"
     }
     else
@@ -134,6 +136,15 @@ function short_title(origtitle){
 
 function quit_whole(file, nr){
     printf "%s:%d, A quit or suspended try cannot read the w[hole] of the book\n", file, nr  > "/dev/stderr"
+}
+
+function estimate_readingtime(){
+    sp = ($1 ~ /(OBW|PGR)1/ ? 130 : ($1 ~ /(OBW|PGR)2/ ? 120 : ($1 ~ /(OBW|PGR)3/ ? 110 : ($1 ~ /(N\/A|PGR5)/ ? 60 : 100))))
+    e_min = wordcount1 / sp
+    if(e_min >= 1000){
+	e_min /= 60; unit = "h"
+    }
+    return
 }
 
 BEGIN{
@@ -246,8 +257,13 @@ BEGIN{
 	if(/^[ \t]*#/){ sk++; continue } # skip comment lines
 	if($5 <= 0){ sk++; continue } # skip failed cases
 	wordcount1 = $5 # words a whole book has (integer)
-	if($8 ~ /[0-9]+[hms]/ && $7 ~ /(w(hole)?|[0-9]+)/){
-	    wpm = "" # initialize
+	min = 0 # initialize
+	e_min = 0 # initialize
+	pages = 0 # initialize
+	wpm = "" # initialize
+	unit = "m" # initialize
+	isCalculatingWPM = 0 # initialize
+	if($9 && $8 ~ /[0-9]+[hms]/ && $7 ~ /(w(hole)?|[0-9]+)/){
 	    if($7 ~ /w(hole)?/ && $10 == "quit"){ # A quit try cannot read the w[hole] of the book
 		quit_whole(reading_record, nr + sk + 1); continue
 	    }else if($7 ~ /w(hole)?/ && $10 == "suspended"){ # A suspendeded try cannot read the w[hole] of the book
@@ -255,6 +271,7 @@ BEGIN{
 	    }else if($7 ~ /w(hole)?/ && $10 == "res+sus"){ # A suspendeded try cannot read the w[hole] of the book
 		quit_whole(reading_record, nr + sk + 1); continue
 	    }
+	    isCalculatingWPM = 1
 	    min = conv_to_min($8) # time which it took to read
 	    if($7 ~ /w(hole)?/) # pages you turned during a reading session (integer)
 		$7 = $9
@@ -269,14 +286,9 @@ BEGIN{
 		time[$1][$2] = 0
 		page[$1][$2] = 0
 	    }
-	    # if(DebugOpt in Opt && Opt[DebugOpt] && $10 ~ /(quit|suspended|res\+sus|resumed)/)
-	    if(DebugOpt in Opt)
-	    	$12 = sprintf("pp. %d\t%.1f m", pages, min)
-	    # else if(DebugOpt in Opt)
-	    # 	$12 = sprintf("pp. %d\t%.1f m", pages, min)
 	    ReadingSpeedInPage = min / pages
 
-	    if($9){ # when the user read some pages
+	    if($7){ # when the user read some pages
 		wholepages = $9 # overall pages a whole book has
 		WordsPerPage = wordcount1 / wholepages
 		ReadingSpeedInWord = pages / min * WordsPerPage
@@ -293,7 +305,7 @@ BEGIN{
 		else if(printmode == 2 && $10 ~ /^quit$/) # shows a quitted try
 		    wpml = wpm1 "!" trimdate($6) # $6 : date
 	    }
-	    else{ # $9 == 0 # no read page
+	    else{ # $7 == 0 # no read page
 	    	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
 	    	wpm = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 	    }
@@ -302,6 +314,21 @@ BEGIN{
 	    wpm = "\t"
 	    if(printmode == 2)
 		wpml = "n/a@" trimdate($6) # $6 : date
+	}
+	if(DebugOpt in Opt && $10 !~ /(quit|suspended|res\+sus)/ && (isCalculatingWPM && $7 < $9 || !isCalculatingWPM)){
+	    estimate_readingtime()
+	    $12 = sprintf("  about\t%5.1f %s", e_min, unit)
+	}
+	if(DebugOpt in Opt && (isCalculatingWPM && $7 == $9) || $10 ~ /quit/)
+	    $12 = sprintf("pp. %3d\t%5.1f %s", pages, min, unit)
+	if(DebugOpt in Opt){
+	    if(VerboseOpt in Opt && $10 ~ /(suspended|res\+sus)/)
+		$12 = "\t"
+	    if(unit == "h")
+		OverallTimeInMinutes += (e_min ? e_min : min) * 60
+	    else
+		OverallTimeInMinutes += e_min ? e_min : min
+	    $13 = round(OverallTimeInMinutes)
 	}
 
 	# if(printmode == 2 && ($10 == "" || $10 == "quit" || $10 == "resumed")){ # only if a book is read in silent (no aloud or no audio)
@@ -336,7 +363,6 @@ BEGIN{
 	}
     }
     close(reading_record)
-    min = 0
 
     # Prints the Summary instead of the Table
     if(printmode == 2){
@@ -380,7 +406,7 @@ BEGIN{
     }
 
     # Prints the Footer of the Table
-    message = "Cumulative Total: " nr - unr " books, " wordcount " words read"
+    message = "Cumulative Total: " nr - unr " books, " wordcount " words read" (DebugOpt in Opt ? " in " OverallTimeInMinutes / 60 " hours (" round(wordcount / OverallTimeInMinutes) " wpm)": "")
     if(printmode == 1){
 	printf print_headerhooter(0)
 	printf records
