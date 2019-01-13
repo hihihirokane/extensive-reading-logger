@@ -73,7 +73,7 @@ BEGIN{
 	exit 1
     }
     comm1 = "ls -1 playlist/*"
-    print " 1x WPM","   1.5x","SERIES","TITLE" # Heading of colums
+    print " 1x WPM","  1.25x","   1.5x","     2x","SERIES","TITLE" # Titles of colums
     while((comm1 | getline) > 0){
 	if($0 ~ /playlist\/note/) continue;
 	path = $0
@@ -96,8 +96,10 @@ BEGIN{
 	duration = getduration(path, coltime) # obtaining a Duration of Audio book out of playlist $pls
 	# print stage,wordcount,duration,title; continue
 	wpm = round(wordcount / duration * 60)
-	wpm15 = round(wordcount / duration * 60 * 1.5) # 1.5 times faster than the original speed
-	printf "%7.0f\t%7.0f\t%s\t%s\n", wpm, wpm15, stage, title
+	wpm12 = round(wordcount / duration * 60 * 1.25) # 1.25 times faster
+	wpm15 = round(wordcount / duration * 60 * 1.5) # 1.5 times faster
+	wpm2 = round(wordcount / duration * 60 * 2) # twice faster
+	printf "%7.0f\t%7.0f\t%7.0f\t%7.0f\t%s\t%s\n", wpm, wpm12, wpm15, wpm2, stage, title
 	# printf "%7d\t%7d\t%7.0f\t%7.0f\t%s\t%s\n", wordcount, duration, wpm, wpm15, stage, title
 	# wordcount = 0
     }
