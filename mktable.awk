@@ -242,7 +242,7 @@ BEGIN{
 	while((calccomm | getline) > 0){
 	    if($4 == "TITLE") continue;
 	    # print $4 > "/dev/stderr"
-	    audiospeed[$3][$4] = $1
+	    audiospeed[$5][$6] = $1
 	}
 	close(calccomm)
     }
@@ -256,6 +256,7 @@ BEGIN{
     for(nr = 0; (getline < reading_record) > 0;){
 	if(/^[ \t]*#/){ sk++; continue } # skip comment lines
 	if($5 <= 0){ sk++; continue } # skip failed cases
+	if($10 ~ /shadow(ing)?/) $5 = 0
 	wordcount1 = $5 # words a whole book has (integer)
 	min = 0 # initialize
 	e_min = 0 # initialize
@@ -338,7 +339,8 @@ BEGIN{
 	    booktitle = short_title($2)
 	    len_title = length(booktitle)
 	    if(len_title_max < len_title) len_title_max = len_title
-	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = (noaudio[booktitle] ? "N/A" : "") "\t" wpml
+	    if(summary[$1][booktitle] == "") summary[$1][booktitle] = (DebugOpt in Opt && noaudio[booktitle] ? "N/A\t" : "") wpml
+	    # if(! ($1, booktitle) in summary) summary[$1][booktitle] = (DebugOpt in Opt && noaudio[booktitle] ? "N/A\t" : "") wpml
 	    else summary[$1][booktitle] = summary[$1][booktitle] "\t" wpml
 	    # summary[$1][booktitle][repcnt[$1, booktitle]] = wpml
 	    # repcnt[$1, booktitle]++
@@ -350,7 +352,7 @@ BEGIN{
 	#     # print #$5
 	# }
 	nr += 1
-	if($10 ~ /(quit|suspended|res\+sus)/)
+	if($10 ~ /(quit|suspended|res\+sus|shadow(ing)?)/)
 	    unr++
 	else
 	    wordcount += wordcount1
