@@ -41,6 +41,29 @@ function help(){
     print "except for macOS this isn't supported"; exit 1
 }
 
+function wpmcolor(wpm_f){
+    wpm_s = round(wpm_f)
+    if(140 <= wpm_f && wpm_f < 180)
+        wpm_s = skycol sprintf("%7d", wpm_s) def
+    else
+        wpm_s = midgrey sprintf("%7d", wpm_s) def
+    return wpm_s
+}
+
+function getopts(){
+    while ((_go_c = getopt(ARGC, ARGV, Options)) != -1){
+    	# printf("c = <%c>, Optarg = <%s>\n",  _go_c, Optarg)
+    	Opt[_go_c] = 1
+    }
+    # print "Opt[_go_c]", Opt["w"]
+    # print "Optind", Optind
+    # for (i = Optind; i < ARGC; i++)
+    # 	printf("\tARGV[%d] = <%s>\n", i, ARGV[i])
+    # argind = Optind
+    # exit 1
+    return Optind # index in ARGV of first nonoption argument
+}
+
 BEGIN{
     os = detectOS()
     # print os
@@ -67,6 +90,16 @@ BEGIN{
     # print; close(path);
     # exit 1
     OFS = "\t"
+    ### Settings for fancy printing ###
+    skycol = "[38;5;51m" # sky color (cyan 1) of escape sequence
+    midgrey = "[38;5;244m" # grey of escape sequence
+    def = "[0m"
+    ### Parsing command and option ###
+    # argind = 1
+    PlainOpt = "p"
+    Options = PlainOpt
+    argind = getopts() # index in ARGV of first nonoption argument
+
     SERIESDB = "series-db.map"
     if(system("[ ! -f " SERIESDB " ]") == 0){
 	print "There's no files called '" SERIESDB "', kindly execute ./install.sh"
@@ -95,11 +128,15 @@ BEGIN{
 	sub(/,/, "", wordcount)
 	duration = getduration(path, coltime) # obtaining a Duration of Audio book out of playlist $pls
 	# print stage,wordcount,duration,title; continue
-	wpm = round(wordcount / duration * 60)
-	wpm12 = round(wordcount / duration * 60 * 1.25) # 1.25 times faster
-	wpm15 = round(wordcount / duration * 60 * 1.5) # 1.5 times faster
-	wpm2 = round(wordcount / duration * 60 * 2) # twice faster
-	printf "%7.0f\t%7.0f\t%7.0f\t%7.0f\t%s\t%s\n", wpm, wpm12, wpm15, wpm2, stage, title
+	wpm = wordcount / duration * 60
+	wpm125 = wpm * 1.25 # 1.25 times faster
+	wpm15 = wpm * 1.5 # 1.5 times faster
+	wpm2 = wpm * 2 # twice faster
+
+	if(PlainOpt in Opt)
+	    printf "%7d\t%7d\t%7d\t%7d\t%s\t%s\n", round(wpm), round(wpm125), round(wpm15), round(wpm2), stage, title
+	else
+	    printf "%s\t%s\t%s\t%s\t%s\t%s\n", wpmcolor(wpm), wpmcolor(wpm125), wpmcolor(wpm15), wpmcolor(wpm2), stage, title
 	# printf "%7d\t%7d\t%7.0f\t%7.0f\t%s\t%s\n", wordcount, duration, wpm, wpm15, stage, title
 	# wordcount = 0
     }
