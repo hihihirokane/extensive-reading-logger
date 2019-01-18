@@ -256,7 +256,7 @@ BEGIN{
     for(nr = 0; (getline < reading_record) > 0;){
 	if(/^[ \t]*#/){ sk++; continue } # skip comment lines
 	if($5 <= 0){ sk++; continue } # skip failed cases
-	if($10 ~ /shadow(ing)?/) $5 = 0
+	if($10 ~ /shadow(ing)?/){ $5 = 0; sub(/shadow(ing)?.*/,"shadow",$10)}
 	wordcount1 = $5 # words a whole book has (integer)
 	min = 0 # initialize
 	e_min = 0 # initialize
