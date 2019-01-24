@@ -238,7 +238,7 @@ BEGIN{
 
     # Audio speed as a reference
     if(DebugOpt in Opt){
-	calccomm = "./calc-audioWPM.awk"
+	calccomm = "./calc-audioWPM.awk -- -p"
 	while((calccomm | getline) > 0){
 	    if($4 == "TITLE") continue;
 	    # print $4 > "/dev/stderr"
