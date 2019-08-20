@@ -1,4 +1,19 @@
+#!/usr/bin/env gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/usr/bin/awk -F "$" -f
+
+function getopts(){
+    while ((_go_c = getopt(ARGC, ARGV, Options)) != -1){
+    	# printf("c = <%c>, Optarg = <%s>\n",  _go_c, Optarg)
+    	Opt[_go_c] = 1
+    }
+    # print "Opt[_go_c]", Opt["w"]
+    # print "Optind", Optind
+    # for (i = Optind; i < ARGC; i++)
+    # 	printf("\tARGV[%d] = <%s>\n", i, ARGV[i])
+    # argind = Optind
+    # exit 1
+    return Optind # index in ARGV of first nonoption argument
+}
 
 function init(){
     OFS = FS = "\t"
@@ -46,8 +61,16 @@ function init(){
 	exit
     }
 
-    # looking for command-line options
-    for(i = 1; i < ARGC; ++i){
+    ### Parsing command and option, using an external function getopt() ###
+    # argind = 1
+    # DebugOpt = "d"
+    QuitOpt = "q"
+    ContinuationOpt = "c"
+    Options = QuitOpt ContinuationOpt
+    argind = getopts() # index in ARGV of first nonoption argument
+
+    # looking for command-line options by myself
+    for(i = argind; i < ARGC; ++i){
 	# if(ARGV[i] ~ /-{1,2}dry(-run)?/){ # not dry-run
 	#     # print "## inside dry-run"
 	#     dryrun=1 # a flag for dry-run
@@ -137,6 +160,9 @@ BEGIN{
     time = ARGV[4]
     overallpages = ARGV[5]
     audio = ARGV[6]
+    # if(ContinuationOpt in Opt)
+    # audio = (ResumeOpt in Opt) ? "resumed" :;
+	
     # if(ARGC < 5){
     # 	print "aho"
     # 	system("read x")
@@ -149,9 +175,9 @@ BEGIN{
     # print "hello"
     while(dbno && (grep | getline) > 0){
 	sub(/,/, "", $11)
-	if($1~/./){
-	    result[resultno]=sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",\
-				     $1,$3,$4,$10,$11,today,page,time,overallpages,audio)
+	if($1 ~ /./){
+	    result[resultno] = sprintf("%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s\t%s",\
+	    			     $1,$3,$4,$10,$11,today,page,time,overallpages,audio)
 	    # print $1,$3,$4,$10,$11,today,page,time,overallpages
 	    if(dryrun == 1)
 		print result[resultno]
