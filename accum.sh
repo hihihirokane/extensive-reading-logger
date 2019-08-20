@@ -212,12 +212,12 @@ function print_scale(){
 init $* # $1 $2
 A_DAY=`head -1 read.done | awk -Ft '{print $6}'` # date in integer
 ADAY=`date -jf %Y.%m.%d ${A_DAY} +%Y%m%d` # date with a format
-echo "BEGIN: $A_DAY"
+TODAY=`date +%Y.%m.%d`
+echo "SINCE $A_DAY as day 0 and then Every $EVERY Days UNTIL $TODAY"
 NEXTDAY=`date -jf %Y%m%d ${ADAY} +%Y%m%d` # next date in integer
 # NEXT_DAY=`date -jf %Y%m%d ${NEXTDAY} +%Y.%m.%d`
-echo "Every $EVERY Days"
-TODAY=`date +%Y.%m.%d`
-echo "END: $TODAY"
+# echo "Every $EVERY Days"
+# echo "UNTIL $TODAY"
 echo "SCALE: $SCALE"
 DAYS=0
 WSUM=0
