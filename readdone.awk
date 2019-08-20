@@ -192,7 +192,7 @@ BEGIN{
     close(reading_records)
     if(system(mkdir) == 0 && system(backup) == 0 && (6 in ARGV) && ARGV[6] !~ /(quit|suspended|res\+sus)/){
 	calc_wordcount | getline wordcount; close(calc_wordcount)
-	print wordcount " words read"
+	printf("%'d words read\n", wordcount)
 	# print backup
     	# print "\"" reading_records "\" doesn't exist";
 	# exit
