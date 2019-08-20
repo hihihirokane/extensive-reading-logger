@@ -1,3 +1,4 @@
+#!/usr/bin/env gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/opt/local/bin/gawk -F "$" -f lib/round.awk -f lib/getopt.awk -f
 #!/usr/bin/awk -F "$" -f
 
@@ -32,7 +33,7 @@ function print_record(){
     rec1 = sprintf(rec1 "%s\t", wpm)
     if(DebugOpt in Opt){
 	rec1 = sprintf(rec1 "%s\t", $12)
-	rec1 = sprintf(rec1 "%5d m\t", $13)
+	rec1 = sprintf(rec1 "%6d m\t", $13)
     }
     # for(j = 1; j < 3; j++)
     # 	rec1 = sprintf(rec1 "%s\t", $j)
@@ -255,7 +256,7 @@ BEGIN{
     # Prints a Table
     res_regex="r(esumed)?"
     # if(printmode == 1) print_headerhooter(nr)
-    sk = 0;
+    sk = 0; # the number of skip
     for(nr = 0; (getline < reading_record) > 0;){
 	# print $2;continue;
 	# if($2 ~ /Downton/)printf print_record();continue;
@@ -314,8 +315,7 @@ BEGIN{
 	    if(printmode == 2 && $10 ~ /(^$|resumed)/)
 		wpml = wpm1 "@" trimdate($6) # $6 : date
 	    else if(printmode == 2 && $10 ~ /^quit$/) # shows a quitted try
-		wpml = wpm1 "!" trimdate($6) # $6 : date
-	    # }
+	    	wpml = wpm1 "!" trimdate($6) # $6 : date
 	    # else{ # $7 == 0 # no read page
 	    # 	# printf "%s\t%.1f m/p\n", $0, ReadingSpeedInPage
 	    # 	wpm = sprintf("%.1f m/p\t", ReadingSpeedInPage)
@@ -331,7 +331,7 @@ BEGIN{
 	    $12 = sprintf("  about\t%5.1f %s", e_min, unit)
 	}
 	if(DebugOpt in Opt && (isCalculatingWPM && $7 == $9) || $10 ~ /quit/)
-	    $12 = sprintf("pp. %3d\t%5.1f %s", pages, min, unit)
+	    $12 = log(min)/log(10) > 2 ? sprintf("pp. %3d\t%5.0f %s", pages, min, unit) : sprintf("pp. %3d\t%5.1f %s", pages, min, unit)
 	if(DebugOpt in Opt){
 	    if(VerboseOpt in Opt && $10 ~ /(suspended|res\+sus)/)
 		$12 = "\t"
@@ -343,7 +343,8 @@ BEGIN{
 	}
 
 	# if(printmode == 2 && ($10 == "" || $10 == "quit" || $10 == "resumed")){ # only if a book is read in silent (no aloud or no audio)
-	if(printmode == 2 && $10 ~ /(^$|quit|resumed)/){ # only if a book is read in silent (no aloud or no audio)
+	# if(printmode == 2 && $10 ~ /(^$|quit|resumed)/){ # only if a book is read in silent (no aloud or no audio)
+	if(printmode == 2 && $10 ~ /(^$|resumed)/){ # only if a book is read in silent (no aloud or no audio)
 	    # booktitle = gensub(/:? (and |- )?(Other |Short )?([A-Z][a-z]+ )?Stories( from [A-Z][a-z]+)?/, "", "g", $2)  # - Short Stories
 	    # booktitle = gensub(/( (((and|-) )?(Other|Short) Stories)|(:? (Love )?Stories [fF]rom [A-Z][a-z]+))/, "", "g", $2)
 	    booktitle = short_title($2)
