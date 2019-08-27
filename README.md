@@ -121,18 +121,25 @@ ERF
 を指定する。
 
 出版社・ブランド名入力の必要性は同一著者からの同名タイトルが複数存在するためで、それらの区別はユーザー側でつけてほしい。<!-- 今後、この指定を外せるか試す予定ではあるが、一意に指定するためにはいずれにせよユーザーが区別しないといけないのは同じなので、殆ど意味はないと思う。 -->
-例えば、
-Oxford Bookworms Library
-や
-Oxford Reading Tree
-などを出版するオックスフォード大学出版局のリーダーを指定したい場合、第1引数は
+例えば、The Hound of the Baskervilles
+(コナン・ドイル『バスカービル家の犬』)
+を登録したい場合、このタイトルは
+オックスフォード大学出版局だけでも
+Oxford Bookworms Library Stage 4
+と
+Oxford Progressive English Readers Grade 3
+があり、ピアソン・エデュケーションの
+Pearson English Readers Level 5
+にも存在するように、少くとも3冊ある
+(実際にはもっと存在する)。
+したがって、オックスフォード大学出版局のリーダーを指定したい場合、第1引数は
 ```oxford```
-とする。または可能な限り省略して
-```o``` ともできる。<!-- この -->
-<!-- ```o[xford]``` -->
-<!-- の他に第1引数で指定できる出版社・ブランドは、現時点で本邦で入手しやすい -->
-<!-- ```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]``` -->
-<!-- である。 -->
+とする。または可能な限り省略して一文字
+```o``` ともできる。省略した時の必要な流さは一意に指定できる文字数であり、この
+```o[xford]```
+の他に第1引数で指定できる出版社・ブランドは、現時点で本邦で入手しやすい
+```b[lackcat], ca[mbridge], ce[ngage], m[acmillan], pen[guin], pea[rson]```
+を用意している。
 
 検索キーワードとして例えば、
 Brat Farrar, Oxford Bookworms Library Stage 5
