@@ -7,7 +7,7 @@ PGR4	Day of the Jackal, The	Forsyth, Frederick	4.5	24646	2016.01.14	5	15m	120
 PGR4	Full Monty, The	Holden, Wendy	4.3	18645	2016.01.17	38	1h52m	80
 PGR3	How to be an Alien	Mikes, George	3.3	7845	2016.01.19	35	1h5m	56
 PGR3	Psycho	Bloch, Robert	3.3	9718	2016.01.20	35	1h28m	48
-N/A	A Game of Thrones	Martin, George R.R.	N/A	267840	2016.07.04	57	3h51m	807
+N/A	Game of Thrones, A	Martin, George R.R.	N/A	267840	2016.07.04	57	3h51m	807
 N/A	Street Lawyer, The	Grisham, John	N/A	143840	2016.08.06	23	1h7m	449
 N/A	Command and Control	Schlosser, Eric	N/A	200080	2016.09.01	150			quit
 PGR4	Evening Class	Binchy, Maeve	4.5	18626 	2016.12.28		
@@ -1210,3 +1210,10 @@ OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.22	w
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.08.23	38	1h14m35s	74	suspended
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.08.24	w	1h13m15s	74	resumed
 OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2019.08.25	29	1h2m34s	89	suspended
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2019.08.26	56	41m47s	89	res+sus
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2019.08.27	72	28m46s	89	res+sus
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2019.08.28	w	34m10s	89	resumed
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.08.29	17.3	56m10s	88	suspended
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.08.30	36.9	1h6m7s	88	res+sus
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.08.31	55	59m13s	88	res+sus
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.09.02	72.8	48m45s	88	res+sus
