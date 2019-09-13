@@ -188,9 +188,10 @@ BEGIN{
     ### Parsing command and option ###
     # argind = 1
     WriteOpt = "w"
+    FancyOpt = "W"
     VerboseOpt = "v"
     DebugOpt = "d"
-    Options = DebugOpt VerboseOpt WriteOpt
+    Options = DebugOpt VerboseOpt WriteOpt FancyOpt
     # Options = WriteOpt
     argind = getopts() # index in ARGV of first nonoption argument
     if(WriteOpt in Opt && Opt[WriteOpt] == 1){
@@ -308,7 +309,7 @@ BEGIN{
 	    # printf "%s\t%.1f m/p\t%d wpm\n", $0, ReadingSpeedInPage, ReadingSpeedInWord
 	    rsip = sprintf("%.1f m/p\t", ReadingSpeedInPage)
 	    wpm1 = sprintf("%3.0f", ReadingSpeedInWord)
-	    if(! (WriteOpt in Opt))
+	    if(! (WriteOpt in Opt) || (FancyOpt in Opt))
 		wpm1 = wpmcolor(wpm1, ReadingSpeedInWord) # arg: string of wpm, float of wpm
 	    wpm = rsip wpm1 " wpm"
 
@@ -411,7 +412,11 @@ BEGIN{
 	}
 	# close(summary_file_title)
 	close(summary_file)
-	print "sort " summary_file | "sh"; close("sh")
+	if(FancyOpt in Opt)
+	    print "sort " summary_file " | less -R" | "sh"
+	else
+	    print "sort " summary_file | "sh"
+	close("sh")
 	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
 	    print "sort " summary_file " > " record_file | "sh" # escape sequence must be erased.
 	    close("sh")
@@ -421,18 +426,26 @@ BEGIN{
 
     # Prints the Footer of the Table
     # message = "Cumulative Total: " nr - unr " books, " wordcount " words read" (DebugOpt in Opt ? " in " OverallTimeInMinutes / 60 " hours (" round(wordcount / OverallTimeInMinutes) " wpm)": "")
-    message = "Cumulative Total: " nr - unr " books, " sprintf("%'d", wordcount) " words read" (DebugOpt in Opt ? " in " OverallTimeInMinutes / 60 " hours (" round(wordcount / OverallTimeInMinutes) " wpm)": "")
+    message = "Cumulative Total: " nr - unr " books, " sprintf("%'d", wordcount)\
+	" words read" (DebugOpt in Opt ? " in " OverallTimeInMinutes / 60 " hours ("\
+		       round(wordcount / OverallTimeInMinutes) " wpm)": "")
     if(printmode == 1){
-	dig=log(wordcount)/log(10)+1
-	printf print_headerhooter(0,dig)
-	printf records
-	printf print_headerhooter(nr,dig)
-	print message
+	dig = log(wordcount) / log(10) + 1
+	# printf print_headerhooter(0,dig)
+	# printf records
+	# printf print_headerhooter(nr,dig)
+	# print message
+	s = sprintf("%s%s%s%s", print_headerhooter(0,dig),	\
+		records,			\
+		print_headerhooter(nr,dig),	\
+		message)
+	print s
 	if(WriteOpt in Opt && Opt[WriteOpt] == 1){
-	    print print_headerhooter(0,dig)	\
-		records \
-		print_headerhooter(nr,dig)	\
-		message > record_file
+	    print s > record_file
+	    # print print_headerhooter(0,dig)	\
+	    # 	records \
+	    # 	print_headerhooter(nr,dig)	\
+	    # 	message > record_file
 	    close(record_file)
 	}
 	# print nr " books"
