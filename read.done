@@ -1124,8 +1124,8 @@ OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019
 OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.03.22	55	19m11s	88	res+sus
 OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.03.23	72.8	55m	88	res+sus
 OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2019.03.23	w	47m15s	88	resumed
-OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.03.27	41	1h8m48s	85	suspended
-OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.03.27	w	1h17m13s	85	resumed
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.03.27	41	1h8m48s	87	suspended
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.03.27	w	1h17m13s	87	resumed
 OBW5	Ghost Stories	Retold by Rosemary Border	4.5-5.0	22720 	2019.03.30	35	47m17s	86	suspended
 OBW5	Ghost Stories	Retold by Rosemary Border	4.5-5.0	22720 	2019.04.02	59	28m41s	86	res+sus
 OBW5	Ghost Stories	Retold by Rosemary Border	4.5-5.0	22720 	2019.04.02	w	36m37s	86	resumed
@@ -1204,9 +1204,9 @@ OBW5	Ghost Stories	Retold by Rosemary Border	4.5-5.0	22720 	2019.08.13	72	17m20s
 OBW5	Ghost Stories	Retold by Rosemary Border	4.5-5.0	22720 	2019.08.14	w	20m30s	86	resumed
 PGR4	1984	Orwell, George	4.5-5.0	19465	2019.08.16	7	17m55s	68	quit
 OBW1	Les Miserables	Retold by Jennifer Bassett	2.0-2.2	7302 	2019.08.17	w	42m25s	44	
-OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.18	36	50m37s	85	suspended
-OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.21	60	34m45s	85	res+sus
-OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.22	w	34m25s	85	resumed
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.18	36	50m37s	87	suspended
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.21	60	34m45s	87	res+sus
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2019.08.22	w	34m25s	87	resumed
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.08.23	38	1h14m35s	74	suspended
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.08.24	w	1h13m15s	74	resumed
 OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2019.08.25	29	1h2m34s	89	suspended
@@ -1285,8 +1285,41 @@ OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	1
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.12.23	21	30m56s	74	suspended
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.12.24	49	41m56s	74	res+sus
 OBW5	Merchant of Venice, The	William Shakespeare, Retold by Clare West	4.5-5.0	18470 	2019.12.25	w	46m23s	74	resumed
-OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.07.20	12.5	17m44s	86	suspended
-OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.07.21	41.6	1h4m49s	86	res+sus
-# OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.07.27	64.5	37m27s	86	res+sus
-OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.07.28	55	33m25s	86	res+sus
-OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.07.29	w	1h3m52s	86	resumed
+OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.12.26	12.5	17m44s	86	suspended
+OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.12.27	41.6	1h4m49s	86	res+sus
+# OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.12.28	64.5	37m27s	86	res+sus
+OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.12.30	55	33m25s	86	res+sus
+OBW5	Heat and Dust	Ruth Prawer Jhabvala, Retold by Clare West	4.5-5.0	24125 	2019.12.31	w	1h3m52s	86	resumed
+OBW5	Jeeves and Friends - Short Stories	P. G. Wodehouse, Retold by Clare West	4.5-5.0	22670 	2020.01.01	31	48m44s	85	suspended
+OBW5	Jeeves and Friends - Short Stories	P. G. Wodehouse, Retold by Clare West	4.5-5.0	22670 	2020.01.02	59	50m05s	85	res+sus
+OBW5	Jeeves and Friends - Short Stories	P. G. Wodehouse, Retold by Clare West	4.5-5.0	22670 	2020.01.04	w	51m56s	85	resumed
+OBW5	I, Robot - Short Stories	Isaac Asimov, Retold by Rosemary Border	4.5-5.0	22500 	2020.01.6	32	30m42s	85	suspended
+OBW5	I, Robot - Short Stories	Isaac Asimov, Retold by Rosemary Border	4.5-5.0	22500 	2020.01.7	58	31m54s	85	res+sus
+OBW5	I, Robot - Short Stories	Isaac Asimov, Retold by Rosemary Border	4.5-5.0	22500 	2020.01.8	w	32m30s	85	resumed
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2020.01.09	18	28m26s	89	suspended
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2020.01.10	37	38m06s	89	res+sus
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2020.01.11	56	27m06s	89	res+sus
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2020.01.13	72	31m50s	89	res+sus
+OBW5	Riddle of the Sands, The	Erskine Childers, Retold by Peter Hawkins	4.5-5.0	22885 	2020.01.14	w	28m	89	resumed
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.15	20	25m01s	87	suspended
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.17	41	26m	87	res+sus
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.20	65	38m48s	87	res+sus
+OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.21	w	28m40s	87	resumed
+PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.22	22	38m01s	79	suspended
+PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.24	51	1h3m4s	79	res+sus
+PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.25	w	51m	79	resumed
+OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.26	9	27m21s	89	quit
+OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.27	23	53m	89	suspended
+OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.28	46	54m10s	89	res+sus
+OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.29	68	41m44s	89	res+sus
+OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.30	w	50m37s	89	resumed
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2020.01.31	17.3	43m06s	88	suspended
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2020.02.01	36.9	40m10s	88	res+sus
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2020.02.02	55	48m46s	88	res+sus
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2020.02.03	72.8	56m39s	88	res+sus
+OBW5	Sense and Sensibility	Jane Austen, Retold by Clare West	4.5-5.0	24345 	2020.02.04	w	44m25s	88	resumed
+N/A	Code Book, The	Simon Singh	N/A	108000	2020.02.05	3	5m41s	436	suspended
+OBW5	Accidental Tourist, The	Anne Tyler, Retold By JSB	4.5-5.0	24810 	2020.02.06	24	44m44s	90	suspended
+OBW5	Accidental Tourist, The	Anne Tyler, Retold By JSB	4.5-5.0	24810 	2020.02.97	45	52m14s	90	res+sus
+OBW5	Accidental Tourist, The	Anne Tyler, Retold By JSB	4.5-5.0	24810 	2020.02.08	64	47m14s	90	res+sus
+OBW5	Accidental Tourist, The	Anne Tyler, Retold By JSB	4.5-5.0	24810 	2020.02.09	w	1h15m47s	90	resumed
