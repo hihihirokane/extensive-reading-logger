@@ -1306,9 +1306,9 @@ OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.15	2
 OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.17	41	26m	87	res+sus
 OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.20	65	38m48s	87	res+sus
 OBW5	King's Ransom	Ed McBain, Retold by Rosalie Kerr	4.5-5.0	24330 	2020.01.21	w	28m40s	87	resumed
-PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.22	22	38m01s	79	suspended
-PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.24	51	1h3m4s	79	res+sus
-PR6	Spy Who Came in from the Cold, The	John le Carré	5.0?	18179 	2020.01.25	w	51m	79	resumed
+PR6	Spy Who Came in from the Cold, The	John le Carré	N/A	18179 	2020.01.22	22	38m01s	79	suspended
+PR6	Spy Who Came in from the Cold, The	John le Carré	N/A	18179 	2020.01.24	51	1h3m4s	79	res+sus
+PR6	Spy Who Came in from the Cold, The	John le Carré	N/A	18179 	2020.01.25	w	51m	79	resumed
 OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.26	9	27m21s	89	quit
 OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.27	23	53m	89	suspended
 OBW5	Treading on Dreams: Stories from Ireland	Retold by Clare West	4.5-5.0	25395 	2020.01.28	46	54m10s	89	res+sus
@@ -1472,3 +1472,25 @@ OBW5	Little Dorrit	Charles Dickens, Retold by Rowena Akinyemi	4.5-5.0	25189 	202
 OBW5	Little Dorrit	Charles Dickens, Retold by Rowena Akinyemi	4.5-5.0	25189 	2020.12.11	53	42m57s	102	res+sus
 OBW5	Little Dorrit	Charles Dickens, Retold by Rowena Akinyemi	4.5-5.0	25189 	2020.12.13	78	40m13s	102	res+sus
 OBW5	Little Dorrit	Charles Dickens, Retold by Rowena Akinyemi	4.5-5.0	25189 	2020.12.14	w	39m36s	102	resumed
+PR6	Darkest Hour	Anthony McCarten	N/A	19151	2020.12.15	21	31m	79	suspended
+PR6	Darkest Hour	Anthony McCarten	N/A	19151	2020.12.18	37	39m	79	res+sus
+PR6	Darkest Hour	Anthony McCarten	N/A	19151	2020.12.19	54	35m	79	res+sus
+PR6	Darkest Hour	Anthony McCarten	N/A	19151	2020.12.19	72	33m	79	res+sus
+PR6	Darkest Hour	Anthony McCarten	N/A	19151	2020.12.19	w	12m11s	79	resumed
+OBW5	Wuthering Heights	Emily Brontë, Retold by Clare West	4.5-5.0	23180 	2020.12.23	22	43m33s	87	suspended
+OBW5	Wuthering Heights	Emily Brontë, Retold by Clare West	4.5-5.0	23180 	2020.12.24	44.5	42m50s	87	res+sus
+OBW5	Wuthering Heights	Emily Brontë, Retold by Clare West	4.5-5.0	23180 	2020.12.25	66	40m08s	87	res+sus
+OBW5	Wuthering Heights	Emily Brontë, Retold by Clare West	4.5-5.0	23180 	2020.12.26	w	29m05s	87	resumed
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2019.10.27	23	35m27s	88	suspended
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2019.10.29	46	38m40s	88	res+sus
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2019.10.30	65	37m21s	88	res+sus
+OBW5	Brat Farrar	Josephine Tey, Retold by Ralph Mowat	4.5-5.0	24510 	2019.11.01	w	43m38s	88	resumed
+PR6	White Fang	Jack London	N/A	20000	2020.12.15	21	32m7s	86	suspended
+PR6	White Fang	Jack London	N/A	20000	2020.12.18	42	39m6s	86	res+sus
+PR6	White Fang	Jack London	N/A	20000	2020.12.19	62	33m53s	86	res+sus
+PR6	White Fang	Jack London	N/A	20000	2020.12.19	w	43m42s	86	resumed
+OBW5	Great Gatsby, The	Scott Fitzgerald	4.5-5.0	23445 	2021.01.13	19	37m15s	89	suspended
+OBW5	Great Gatsby, The	Scott Fitzgerald	4.5-5.0	23445 	2021.01.20	36	32m37s	89	res+sus
+OBW5	Great Gatsby, The	Scott Fitzgerald	4.5-5.0	23445 	2021.01.21	54	32m21s	89	res+sus
+OBW5	Great Gatsby, The	Scott Fitzgerald	4.5-5.0	23445 	2021.01.22	71	31m34s	89	res+sus
+OBW5	Great Gatsby, The	Scott Fitzgerald	4.5-5.0	23445 	2021.01.23	w	35m32s	89	resumed
