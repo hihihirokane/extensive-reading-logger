@@ -138,7 +138,7 @@ function short_title(origtitle){
 }
 
 function quit_whole(file, nr){
-    printf "%s:%d, A quit or suspended try cannot read the w[hole] of the book\n", file, nr  > "/dev/stderr"
+    printf "%s:%d, A quit or suspended try\n", file, nr  > "/dev/stderr"
 }
 
 function estimate_readingtime(){
